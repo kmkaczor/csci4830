@@ -5,6 +5,8 @@
 from django.db import models
 from django.db.models.fields import CharField, IntegerField
 
+# These are under helloworld, but will be used later for main project.
+
 
 class Author(models.Model):
     firstname = CharField(max_length=60)

@@ -18,7 +18,7 @@ from pathlib import Path
 #### SECURITY WARNING: keep the secret key used in production secret! ####
 
 # <!> Prevent secret key from appearing in github. Put the secret key in your home directory pathfolder with the
-# <!> .csci4830-secretkey file containing the secret key. This will search in the home directory of the user
+# <!> .csci4830-secretkey file containing the secret key string. This will search in the home directory of the user
 # <!> running apache or django's own web instance, and will let you know exactly where it is looking
 # <!> in the log files.
 
