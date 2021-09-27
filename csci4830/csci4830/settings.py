@@ -20,12 +20,27 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'CENSOR'
+
+# Prevent secret key from appearing in github. Put the secret key in your home directory pathfolder with the
+# .csci4830-secretkey file containing the secret key.
+
+sk_file = Path.home() + "/.csci4830-secretkey"
+SECRET_KEY = ""
+
+try:
+    SECRET_KEY = open(sk_file, 'r').read()
+except OSError as err:
+    print("Unable to open file, either it does not exist or you do not have permissions: " + err.strerror)
+    exit(1)
+except FileNotFoundError as err:
+    print("Unable to load secret key file "
+          + sk_file + ": " + err.strerror)
+    exit(1)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-#ALLOWED_HOSTS = [ "0.0.0.0", "18.117.196.140" ]
+# ALLOWED_HOSTS = [ "0.0.0.0", "18.117.196.140" ]
 
 
 # Application definition
