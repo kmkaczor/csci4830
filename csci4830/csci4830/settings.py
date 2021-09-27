@@ -24,15 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Prevent secret key from appearing in github. Put the secret key in your home directory pathfolder with the
 # .csci4830-secretkey file containing the secret key.
 
-sk_file = Path.home() + "/.csci4830-secretkey"
+sk_file = str(Path.home()) + "/.csci4830-secretkey"
 SECRET_KEY = ""
 
 try:
+    print("Using secret key file: " + sk_file)
     SECRET_KEY = open(sk_file, 'r').read()
-except OSError as err:
-    print("Unable to open file, either it does not exist or you do not have permissions: " + err.strerror)
-    exit(1)
-except FileNotFoundError as err:
+except Exception as err:
     print("Unable to load secret key file "
           + sk_file + ": " + err.strerror)
     exit(1)
