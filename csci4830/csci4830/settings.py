@@ -12,17 +12,15 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
+#### SECURITY WARNING: keep the secret key used in production secret! ####
 
-# Prevent secret key from appearing in github. Put the secret key in your home directory pathfolder with the
-# .csci4830-secretkey file containing the secret key.
+# <!> Prevent secret key from appearing in github. Put the secret key in your home directory pathfolder with the
+# <!> .csci4830-secretkey file containing the secret key. This will search in the home directory of the user
+# <!> running apache or django's own web instance, and will let you know exactly where it is looking
+# <!> in the log files.
 
 sk_file = str(Path.home()) + "/.csci4830-secretkey"
 SECRET_KEY = ""
@@ -35,12 +33,19 @@ except Exception as err:
           + sk_file + ": " + err.strerror)
     exit(1)
 
+
+ALLOWED_HOSTS = ["18.117.196.140", "ec2-18-117-196-140.us-east-2.compute.amazonaws.com"
+                 # <!> Add your server here. You should probably put down both the IP address and the domain name
+                 # <!> so that you can access from both methods (apache will notice the difference)
+                 ]
+
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-# ALLOWED_HOSTS = [ "0.0.0.0", "18.117.196.140" ]
-
-
 # Application definition
 
 INSTALLED_APPS = [
