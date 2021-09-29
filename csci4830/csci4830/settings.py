@@ -34,7 +34,8 @@ except Exception as err:
     exit(1)
 
 
-ALLOWED_HOSTS = ["18.117.196.140", "ec2-18-117-196-140.us-east-2.compute.amazonaws.com"
+ALLOWED_HOSTS = ["18.117.196.140", "ec2-18-117-196-140.us-east-2.compute.amazonaws.com",
+                 "18.220.120.85"
                  # <!> Add your server here. You should probably put down both the IP address and the domain name
                  # <!> so that you can access from both methods (apache will notice the difference)
                  ]
