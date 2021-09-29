@@ -1,19 +1,19 @@
 In order to have django installed, you must install it via your Ubuntu linux repository. If it asks for yes/no, say yes.
 
-    apt-get install python3-django
+    sudo apt-get install python3-django
 
 Of course, we need someplace to install OUR django files. Since we are wanting to host it under apache, we will
 do so under /var/www/
 
     cd /var/www
-    git clone https://github.com/kmkaczor/csci4830.git
-    chown -R www-data:www-data project/
+    sudo git clone https://github.com/kmkaczor/csci4830.git
+    sudo chown -R www-data:www-data project/
     cd csci4830
-    git checkout devel
-    git pull
+    sudo git checkout devel
+    sudo git pull
 
 Apache needs to be configured to recognize both django and python as executable files.
-In /etc/apache2/sites-enables/000-default.conf, please add the following lines ABOVE
+In /etc/apache2/sites-enables/000-default.conf, using either vim or nano, please add the following lines ABOVE
 the <VirtualHost *:80> directive:
 
     WSGIScriptAlias / /var/www/project/csci4830/csci4830/wsgi.py
@@ -38,6 +38,15 @@ you need to add:
         Require all granted
         </Files>
     </Directory>
+    
+We need to ensure that there is a /var/www/.csci4830-secretkey file readable by django, as django uses secret key for some security
+mechanisms, and we do not want it appearing in github. For the time being let's put something random in there, if we need the same key
+later on we can worry about that later.
+
+    sudo head -n 50 /dev/urandom | sudo md5sum - > /var/www/.csci4830-secretkey
+    sudo chown www-data:www-data /var/www/.csci4830-secretkey
+    sudo chmod 0400 /var/www/.csci4830-secretkey
+
 
 Apache needs to be restarted in order for it to reread its configuration files
 
