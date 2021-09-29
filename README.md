@@ -23,12 +23,6 @@ the <VirtualHost *:80> directive:
 Additionally, add the following lines underneath the WSGI variables to allow apache access to 
 where we stored our django files. We are changing the apache root folder from /var/www to /var/www/project.
 
-    <Directory /var/www> 
-        Options FollowSymLinks
-        AllowOverride None
-        Require all denied
-    </Directory>
-
     <Directory /var/www/project>
         Options Indexes FollowSymLinks
         AllowOverride None
