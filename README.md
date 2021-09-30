@@ -43,7 +43,7 @@ We need to ensure that there is a /var/www/.csci4830-secretkey file readable by 
 mechanisms, and we do not want it appearing in github. For the time being let's put something random in there, if we need the same key
 later on we can worry about that later.
 
-    sudo head -n 50 /dev/urandom | sudo md5sum - > /var/www/.csci4830-secretkey
+    sudo head -n 50 /dev/urandom | sudo md5sum - | sudo tee /var/www/.csci4830-secretkey
     sudo chown www-data:www-data /var/www/.csci4830-secretkey
     sudo chmod 0400 /var/www/.csci4830-secretkey
 
