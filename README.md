@@ -4,7 +4,6 @@ In order to have django installed, you must install it via your Ubuntu linux rep
 
     sudo apt-get install python3-django
 
-
 Of course, we need someplace to install OUR django files. Since we are wanting to host it under apache, we will
 do so under /var/www/
 
@@ -23,8 +22,11 @@ the <VirtualHost *:80> directive:
     #WSGIPythonHome /path/to/
     WSGIPythonPath /var/www/project/csci4830
 
+The WSGIPythonHome is commented out because it wasn't needed to get Django working, but worth keeping in case
+we do end up needing it.
+
 Additionally, add the following lines underneath the WSGI variables to allow apache access to 
-where we stored our django files. We are changing the apache root folder from /var/www to /var/www/project.
+where we stored our django files. We are ensuring that Apache will allow requests to /var/www/project
 
     <Directory /var/www/project>
         Options Indexes FollowSymLinks
@@ -49,7 +51,6 @@ later on we can worry about that later.
     sudo head -n 50 /dev/urandom | sudo md5sum - | sudo tee /var/www/.csci4830-secretkey
     sudo chown www-data:www-data /var/www/.csci4830-secretkey
     sudo chmod 0400 /var/www/.csci4830-secretkey
-
 
 Apache needs to be restarted in order for it to reread its configuration files
 
