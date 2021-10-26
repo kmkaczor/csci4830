@@ -2,7 +2,7 @@ Don't forget to read: https://docs.djangoproject.com/en/3.2/intro/tutorial01/
 
 In order to have django installed, you must install it via your Ubuntu linux repository. If it asks for yes/no, say yes.
 
-    sudo apt-get install python3-django
+    sudo apt-get install python3-django libapache2-mod-wsgi-py3
 
 Of course, we need someplace to install OUR django files. Since we are wanting to host it under apache, we will
 do so under /var/www/
