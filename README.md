@@ -9,7 +9,7 @@ do so under /var/www/
 
     cd /var/www
     sudo git clone https://github.com/kmkaczor/csci4830.git
-    sudo chown -R www-data:www-data project/
+    sudo chown -R www-data:www-data csci4830/
     cd csci4830
     sudo git checkout devel
     sudo git pull
@@ -18,9 +18,9 @@ Apache needs to be configured to recognize both django and python as executable 
 In /etc/apache2/sites-enables/000-default.conf, using either vim or nano, please add the following lines ABOVE
 the <VirtualHost *:80> directive:
 
-    WSGIScriptAlias / /var/www/project/csci4830/csci4830/wsgi.py
+    WSGIScriptAlias / /var/www/csci4830/csci4830/csci4830/wsgi.py
     #WSGIPythonHome /path/to/
-    WSGIPythonPath /var/www/project/csci4830
+    WSGIPythonPath /var/www/csci4830/csci4830
 
 The WSGIPythonHome is commented out because it wasn't needed to get Django working, but worth keeping in case
 we do end up needing it.
@@ -28,7 +28,7 @@ we do end up needing it.
 Additionally, add the following lines underneath the WSGI variables to allow apache access to 
 where we stored our django files. We are ensuring that Apache will allow requests to /var/www/project
 
-    <Directory /var/www/project>
+    <Directory /var/www/csci4830>
         Options Indexes FollowSymLinks
         AllowOverride None
         Require all granted
@@ -38,7 +38,7 @@ We need to tell apache how to understand django files. Somewhere BELOW the
 <VirtualHost *:80> directive, but prior to the </VirtualHost> closing tag,
 you need to add:
 
-    <Directory /var/www/project>
+    <Directory /var/www/csci4830>
         <Files wsgi.pyu>
         Require all granted
         </Files>
