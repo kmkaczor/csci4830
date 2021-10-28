@@ -12,7 +12,6 @@ do so under /var/www/
     sudo chown -R www-data:www-data csci4830/
     cd csci4830
     sudo git checkout devel
-    sudo git pull
 
 Apache needs to be configured to recognize both django and python as executable files.
 In /etc/apache2/sites-enables/000-default.conf, using either vim or nano, please add the following lines ABOVE
