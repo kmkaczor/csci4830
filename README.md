@@ -14,7 +14,7 @@ do so under /var/www/
     sudo git checkout devel
 
 Apache needs to be configured to recognize both django and python as executable files.
-In /etc/apache2/sites-enables/000-default.conf, using either vim or nano, please add the following lines ABOVE
+In /etc/apache2/sites-enabled/000-default.conf, using either vim or nano, please add the following lines ABOVE
 the <VirtualHost *:80> directive:
 
     WSGIScriptAlias / /var/www/csci4830/csci4830/csci4830/wsgi.py
