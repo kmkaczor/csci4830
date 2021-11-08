@@ -22,8 +22,9 @@ from pathlib import Path
 # <!> running apache or django's own web instance, and will let you know exactly where it is looking
 # <!> in the log files.
 
-AWS_IP="13.58.197.121"
+AWS_DEVEL_DB = "13.58.197.121"
 
+# This will use a secret key file in the apache user's home -- in ubuntu this is /var/www
 sk_file = str(Path.home()) + "/.csci4830-secretkey"
 SECRET_KEY = ""
 
@@ -36,8 +37,12 @@ except Exception as err:
     exit(1)
 
 
-ALLOWED_HOSTS = ["18.117.196.140", "ec2-18-117-196-140.us-east-2.compute.amazonaws.com",
-                 "18.220.120.85", AWS_IP
+ALLOWED_HOSTS = ["localhost", "127.0.0.1",  # Allow development environment
+                 AWS_DEVEL_DB,         # Korey's AWS instance -- also development database
+                                       # Add your AWS here
+                 # "0.0.0.0"
+
+
                  # <!> Add your server here. You should probably put down both the IP address and the domain name
                  # <!> so that you can access from both methods (apache will notice the difference)
                  ]
@@ -96,22 +101,22 @@ WSGI_APPLICATION = 'csci4830.wsgi.application'
 
 
 DATABASES = {
-    'default' : {
+    'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'CSCI4830project',
         'USER': 'CSCI4830',
         'PASSWORD': 'CSCI4830Django',
-        'HOST': AWS_IP,  # "127.0.0.1",
+        'HOST': AWS_DEVEL_DB,  # "127.0.0.1",
         'PORT': '3306',
-        },
+    },
 }
 
-#DATABASES = {
+# DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.sqlite3',
 #        'NAME': BASE_DIR / 'db.sqlite3',
 #    }
-#}
+# }
 
 
 # Password validation
