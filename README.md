@@ -1,3 +1,19 @@
+NEW INSTRUCTIONS:
+
+Turns out python's own package manager has an updated version of django:
+
+    $ sudo pip3 install Django
+
+We need to create a user and database for the project:
+
+    $ sudo mysql -u root -e "CREATE DATABASE CSCI4830project;"
+    $ sudo mysql -u root -e "CREATE USER 'CSCI4830'@'%' IDENTIFIED BY 'CSCI4830Django';"
+    $ sudo mysql -u root -e "GRANT ALL PRIVILEGES ON CSCI4830project.* TO 'CSCI4830'@'%';"
+ 
+
+===============================================
+
+
 Don't forget to read: https://docs.djangoproject.com/en/3.2/intro/tutorial01/
 
 In order to have django installed, you must install it via your Ubuntu linux repository. If it asks for yes/no, say yes.
