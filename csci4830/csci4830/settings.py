@@ -22,6 +22,8 @@ from pathlib import Path
 # <!> running apache or django's own web instance, and will let you know exactly where it is looking
 # <!> in the log files.
 
+AWS_IP="13.58.197.121"
+
 sk_file = str(Path.home()) + "/.csci4830-secretkey"
 SECRET_KEY = ""
 
@@ -35,7 +37,7 @@ except Exception as err:
 
 
 ALLOWED_HOSTS = ["18.117.196.140", "ec2-18-117-196-140.us-east-2.compute.amazonaws.com",
-                 "18.220.120.85"
+                 "18.220.120.85", AWS_IP
                  # <!> Add your server here. You should probably put down both the IP address and the domain name
                  # <!> so that you can access from both methods (apache will notice the difference)
                  ]
@@ -92,12 +94,24 @@ WSGI_APPLICATION = 'csci4830.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default' : {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'CSCI4830project',
+        'USER': 'CSCI4830',
+        'PASSWORD': 'CSCI4830Django',
+        'HOST': AWS_IP,  # "127.0.0.1",
+        'PORT': '3306',
+        },
 }
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}
 
 
 # Password validation
