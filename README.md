@@ -15,7 +15,7 @@ do so under /var/www/
     cd csci4830
     sudo git checkout devel
     
-    sudo head -n 50 /dev/urandom | sudo md5sum - | sudo tee /var/www/.csci4830-secretkey
+    sudo echo "THISISTHEKEY" > /var/www/.csci4830-secretkey
     sudo chown www-data:www-data /var/www/.csci4830-secretkey
     sudo chmod 0400 /var/www/.csci4830-secretkey
 
