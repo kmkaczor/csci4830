@@ -2,7 +2,11 @@ NEW INSTRUCTIONS:
 
 Turns out python's own package manager has an updated version of django. This makes life easy on us as we don't have to only use outdated documentation:
 
+Say yes to any questions it asks.
+
     $ sudo pip3 install Django pymysql
+    $ apt install libapache2-mod-wsgi-py3
+
 
 Don't forget to read: https://docs.djangoproject.com/en/3.2/intro/tutorial01/
 
@@ -40,6 +44,16 @@ the <VirtualHost *:80> directive:
 Apache needs to be restarted in order for it to reread its configuration files
 
     sudo systemctl restart apache2
+
+==========
+
+Don't forget that you can use your local computer as a development environment. In command line, 
+
+    $ python3 manage.py runserver
+
+will start up a temporary local HTTP server that you can connect to locally, just like with Tomcat. It will be much more efficient than constantly pushing
+via git and then pulling. It will use my AWS database by default, so you won't have to worry about that.
+
 
 ==========
 
