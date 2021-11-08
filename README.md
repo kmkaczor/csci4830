@@ -1,6 +1,6 @@
 NEW INSTRUCTIONS:
 
-Turns out python's own package manager has an updated version of django:
+Turns out python's own package manager has an updated version of django. This makes life easy on us as we don't have to only use outdated documentation:
 
     $ sudo pip3 install Django
 
