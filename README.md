@@ -38,7 +38,7 @@ We need to tell apache how to understand django files. Somewhere BELOW the
 you need to add:
 
     <Directory /var/www/csci4830>
-        <Files wsgi.pyu>
+        <Files wsgi.py>
         Require all granted
         </Files>
     </Directory>
