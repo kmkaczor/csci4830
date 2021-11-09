@@ -63,6 +63,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'libraryshop.models',
+    # 'libraryshop.apps.*'
+    'libraryshop.apps.LibraryshopConfig'
 ]
 
 MIDDLEWARE = [
@@ -80,7 +83,7 @@ ROOT_URLCONF = 'csci4830.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['libraryshop/includes/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

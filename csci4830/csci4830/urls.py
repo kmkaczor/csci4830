@@ -15,10 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from libraryshop import views
 
 urlpatterns = [
+    path('', views.index, name="index"),  # To access in browser: /
+    path('book', views.book, name="book")  # To access in browser /book
     # Remove later once unneeded.
-    #path('helloworld/', include('helloworld.urls')),
+    # path('helloworld/', include('helloworld.urls')),
     # path('', include('helloworld.urls')), # Root index of project links to helloworld app
     #    path('admin/', admin.site.urls),
 ]
