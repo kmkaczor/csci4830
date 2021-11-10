@@ -19,14 +19,16 @@ from django.conf.urls.static import static
 from django.urls import include, path
 from libraryshop import views
 
+#       Browser path           Path from project root (directory with manage.py)
+#       ''              =    "/"
+#       'book'          =    "/book"
+#       'admin'         =    "/admin"
 
 urlpatterns = [
     path('', views.index, name="index"),  # To access in browser: /
     path('book', views.book, name="book"),  # To access in browser /book
+    path('search', views.search, name="search"),  # /search
+    path('browse', views.browse, name="browse"),  # /search
     path('admin', admin.site.urls, name="admin")  # To access in browser /book
 
-    # Remove later once unneeded.
-    # path('helloworld/', include('helloworld.urls')),
-    # path('', include('helloworld.urls')), # Root index of project links to helloworld app
-    #    path('admin/', admin.site.urls),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Allow static files for developemnt mode
