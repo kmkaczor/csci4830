@@ -1,3 +1,12 @@
+UPDATES (11-10-21):
+
+Pillow has been added as a dependency in order to enable the ImageField() type in django models. This allows image uploads and validation
+without having to do a bunch of really annoying stuff. To install it:
+
+    $ pip install pillow
+    
+
+
 NEW INSTRUCTIONS:
 
 Turns out python's own package manager has an updated version of django. This makes life easy on us as we don't have to only use outdated documentation:

@@ -14,14 +14,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import include, path
 from libraryshop import views
 
+
 urlpatterns = [
     path('', views.index, name="index"),  # To access in browser: /
-    path('book', views.book, name="book")  # To access in browser /book
+    path('book', views.book, name="book"),  # To access in browser /book
+    path('admin', admin.site.urls, name="admin")  # To access in browser /book
+
     # Remove later once unneeded.
     # path('helloworld/', include('helloworld.urls')),
     # path('', include('helloworld.urls')), # Root index of project links to helloworld app
     #    path('admin/', admin.site.urls),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

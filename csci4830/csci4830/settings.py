@@ -51,6 +51,8 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1",  # Allow development environment
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+MEDIA_ROOT = str(BASE_DIR) + '/files'
+MEDIA_URL = 'files/'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -83,7 +85,7 @@ ROOT_URLCONF = 'csci4830.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['libraryshop/includes/templates/'],
+        'DIRS': ['csci4830/libraryshop/includes/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -164,3 +166,8 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+#
+# The below options were not created by Django
+#
