@@ -60,23 +60,23 @@ class Book(models.Model):
 
         return super().save(*args, **kwargs)
 
-        ENUM_GENRES = (
-            ('HORROR', 'Horror'),
-            ('ROMANC', 'Romance'),
-            ('NONFIC', 'Non-fiction'),
-            ('FANTAS', 'Fantasy'),
-            ('SCIFIC', 'Science Fiction'),
-            ('MYSTER', 'Mystery'),
-            ('HSTFIC', 'Historial Fiction'),
-            ('CHLDRN', 'Childrens'),
-            ('ATOBIO', 'Autobiography'),
-            ('HISTRY', 'History'),
-            ('COOKBK', 'Cookbook')
-        )
-        genre = models.CharField(max_length=6, choices=ENUM_GENRES)
+    ENUM_GENRES = (
+        ('HORROR', 'Horror'),
+        ('ROMANC', 'Romance'),
+        ('NONFIC', 'Non-fiction'),
+        ('FANTAS', 'Fantasy'),
+        ('SCIFIC', 'Science Fiction'),
+        ('MYSTER', 'Mystery'),
+        ('HSTFIC', 'Historial Fiction'),
+        ('CHLDRN', 'Childrens'),
+        ('ATOBIO', 'Autobiography'),
+        ('HISTRY', 'History'),
+        ('COOKBK', 'Cookbook')
+    )
+    genre = models.CharField(max_length=6, choices=ENUM_GENRES)
 
-        def __str__(self):
-            return self.title + " by " + str(self.author)
+    def __str__(self):
+        return self.title + " by " + str(self.author)
 
 
 class BookSection(models.Model):
@@ -88,7 +88,7 @@ class BookSection(models.Model):
     class Meta:
         constraints = [
             UniqueConstraint(fields=[   # Applies a constraint to UserOwnership to ensure the combination of user_id and book_id is unique
-                'user_id', 'chapter_id'
+                'book_id', 'chapter_num'
             ], name='constraint_book_chapter')
         ]
 
