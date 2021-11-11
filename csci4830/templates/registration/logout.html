@@ -1,0 +1,20 @@
+{% extends 'skeleton.html' %}
+
+{% block title %} User Logout {% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <div>You are already loggin in, {{ user.username }}. Go to your account or logout.</div>
+{% else %}
+    <div id="login_form">
+        <form action="/login/" method="POST">
+            {% csrf_token %}
+
+
+            <div id="login"> Username: {{ form.username }}</div>
+            Password: {{ form.password }} <br />
+            <input type="submit" value="Submit" />
+        </form>
+    </div>
+{% endif %}
+{% endblock %

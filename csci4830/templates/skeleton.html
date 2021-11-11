@@ -2,9 +2,9 @@
 <html lang="en">
 
 <head>
-    <title> {{ pagetitle }} </title>
+    <title> {% block title %}LibraryShop{% endblock %}</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static '/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static '/style.css' %}" />
     {% load static %}
 </head>
 
@@ -15,7 +15,8 @@
 </div>
 
 <div id="content">
-{% include 'content.html' %}
+{% block content %}
+{% endblock %}
 </div>
 
 </body>

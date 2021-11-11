@@ -49,10 +49,10 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1",  # Allow development environment
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+# This is the folder that manage.py is in. Thus MEDIA_ROOT and etc are in that folder
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-MEDIA_ROOT = str(BASE_DIR) + '/files'
-MEDIA_URL = 'files/'
+MEDIA_ROOT = str(BASE_DIR) + '/files/'
+MEDIA_URL = '/files/'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -85,7 +85,7 @@ ROOT_URLCONF = 'csci4830.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['csci4830/libraryshop/includes/templates/'],
+        'DIRS': [BASE_DIR / 'templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -160,9 +160,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = str(BASE_DIR) + '/static/'
+STATIC_ROOT = BASE_DIR / "static"
+STATIC_URL = '/static/'
 
-STATIC_ROOT = str(BASE_DIR) + '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static/css",
+    BASE_DIR / "static/img",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -173,3 +177,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #
 # The below options were not created by Django
 #
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'

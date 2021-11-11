@@ -1,5 +1,5 @@
 from django.db.models.constraints import UniqueConstraint
-from django.db.models.fields import CharField, DateField, EmailField, IntegerField, TextField
+from django.db.models.fields import CharField, DateField, EmailField, IntegerField, PositiveIntegerField, TextField
 from django.db import models
 from django.db.models.deletion import DO_NOTHING
 from abc import ABC
@@ -21,8 +21,6 @@ class UserAccount(models.Model):
 
 class Author(models.Model):
     """Table of authors.
-
-
     """
     firstname = CharField(max_length=60)
     lastname = CharField(max_length=60)
@@ -34,13 +32,13 @@ class Author(models.Model):
 class Book(models.Model):
     def cover_image_path(book, filename):
         extension = str(filename).split(sep='.')[-1]
-        return 'book/{0}/cover.{1}'.format(book.pk, extension)
+        return 'book/{0}/img/cover.{1}'.format(book.pk, extension)
 
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     title = CharField(max_length=250)
     publication_date = DateField(null=True)
-    date_added_db = DateField(auto_created=True)
-    date_edit_db = DateField(auto_created=True, auto_now_add=True)
+    date_added_db = DateField(auto_created=True, auto_now_add=True)
+    date_edit_db = DateField(auto_created=True, auto_now=True)
     description = TextField(null=True)
     isbn = CharField(max_length=14, name="ISBN", null=True)
     cover_image = ImageField(upload_to=cover_image_path,
@@ -82,8 +80,15 @@ class Book(models.Model):
 class BookSection(models.Model):
     book_id = models.ForeignKey(Book, on_delete=models.DO_NOTHING, null=False)
     chapter_title = CharField(max_length=1000, null=True)
-    chapter_num = IntegerField(13, unique=True)  # Chapter numbers are unique
-    file = CharField(max_length=500)  # Absolute path to file location
+    # Chapter numbers are unique
+    chapter_num = PositiveIntegerField('Chapter number')
+
+    def book_section_path(section, filename):
+        extension = str(filename).split(sep='.')[-1]
+        return 'book/{0}/section/chapter{1}.{2}'.format(section.book_id.id, section.chapter_num, extension)
+
+    file = FileField(upload_to=book_section_path, max_length=250,
+                     unique=True)  # Absolute path to file location
 
     class Meta:
         constraints = [
