@@ -1,10 +1,10 @@
 <ul>
-    <li>Home</li>
-    <li>Popular books</li>
-    <li>User Settings</li>
+    <li><a href="{% url 'index' %}"> Home</li>
+    <li><a href="{% url 'search' %}">Search Books</li>
     {% if user.is_authenticated %}
-        <li><a href="/accounts/logout">Logout</a></li>
+        <li><a href="{% url 'settings' %}">User Settings</li>
+        <li><a href="{% url 'logout' %}">Logout [{{ user.username }}]</a></li>
     {% else %}
-        <li><a href="/accounts/login">Login<a></li>
+        <li><a href="{% url 'login' %}">Login<a></li>
     {% endif %}
 </ul>

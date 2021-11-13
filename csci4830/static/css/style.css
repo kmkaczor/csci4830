@@ -1,7 +1,53 @@
 #navbar {
    color:blueviolet; 
+   min-width: 150px;
+   max-width: 250px;
+   border-right: brown ridge 3px;
+   float: left;
+
+}
+
+/* Main body of page */
+#content {
+   width: 90%;
+   float: left;
+   position: relative;
+   padding-left: 20px;
 }
 
 body {
-   background: orange;
+   background: lightyellow;
+}
+
+form > p > label {
+   display: block;
+   margin-bottom: 5px;
+}
+
+form > div > label {
+   display: inline-block;
+   margin-bottom: 10px;
+   text-align: left;
+   font-size: 0.8em;
+   min-width: 50px;
+}
+
+#id_submit_row {
+   display: table;
+}
+
+form > div > #id_remember {
+   display: table-cell;
+}
+
+form > div > #id_submit_button {
+   display: table-cell;
+   text-align: right;
+}
+
+
+/* Example of form using as_p */
+#any_form > p > label {
+   display: inline-block;
+   width: 200px;
 }

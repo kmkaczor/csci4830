@@ -1,4 +1,5 @@
 from django.contrib.auth import logout
+from django.contrib.auth import logout
 from django.shortcuts import render
 
 # from csci4830.libraryshop.models import BookSection
@@ -53,17 +54,64 @@ def book(request):
 
 
 def search(request):
+    # Initialize
     from libraryshop.forms import SearchBookForm
+    hadQuery = False
     form = SearchBookForm()
 
     context = {
-        'passedVariableFromRender': form
+        'form': form
     }
-    return render(request, "skeleton.html", context)
+
+    # Search for submitted POST queries
+    if request.method != 'POST':
+        return render(request, "search.html", context)
+
+    title = request.POST['title']
+    author = request.POST['author']
+    isbn = request.POST['ISBN']
+    genre = request.POST['genre']
+    date_before_month = request.POST['search_date_before_month']
+    date_before_day = request.POST['search_date_before_day']
+    date_before_year = request.POST['search_date_before_year']
+
+    date_after_month = request.POST['search_date_after_month']
+    date_after_day = request.POST['search_date_after_day']
+    date_after_year = request.POST['search_date_after_year']
+
+    from libraryshop.models import Book
+    from django.db.models import Q  # Trust the plan!
+
+    results = Book.objects.all()
+
+    if (title != "" and title != None):
+        hadQuery = True
+        print("title")
+        results = results.filter(title__icontains=title)
+    if (author):
+        hadQuery = True
+        print("author")
+        results = results.filter(author__exact=author)
+        print(results)
+    if (isbn):
+        hadQuery = True
+        results = results.filter(isbn__icontains=isbn)
+    if (genre):
+        hadQuery = True
+        results = results.filter(genre__exact=genre)
+    if (date_before):
+        pass
+        #results = results.filter()
+
+    if hadQuery == False:
+        return render(request, "search.html", context)
+
+    print(results)
+
+    return render(request, "search.html", context)
 
 
 def browse(request):
-
     pass
 
 
@@ -83,19 +131,16 @@ def login(request):
     elif (session_user := authenticate(request, username=postUsername, password=postPassword)) == None:
         login_status_mesg += 'Invalid username and password combination!'
     # else:
-        #login_status_mesg += 'Invalid username and password combination!'
+        # login_status_mesg += 'Invalid username and password combination!'
 
     print(login_status_mesg)
     from libraryshop.forms import LoginForm
-    a = LoginForm
 
     context = {
-        'user': session_user,
         'login_form': LoginForm(),
         'content_site': 'login.html',
         'login_status_mesg': login_status_mesg
     }
-    print(context[1])
     return render(request, "registration/login.html", context)
 
 

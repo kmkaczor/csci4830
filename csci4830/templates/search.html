@@ -1,0 +1,12 @@
+{% extends 'skeleton.html' %}
+
+{% block title %} Book Search {% endblock %}
+
+{% block content %}
+<form action="{% url 'search' %}" method="post" id="search_form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Search" />
+</form>
+{% endblock %}
+

@@ -7,11 +7,12 @@
     <div>You are already loggin in, {{ user.username }}. Go to your account or logout.</div>
 {% else %}
     <div id="login_form">
-        <form action="/login/" method="POST">
+        <form action="/login/" method="post">
             {% csrf_token %}
 
 
-            <div id="login"> Username: {{ form.username }}</div>
+            <div id="username">
+                <labelUsername: {{ form.username }}</div>
             Password: {{ form.password }} <br />
             <input type="submit" value="Submit" />
         </form>

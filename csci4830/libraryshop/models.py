@@ -34,13 +34,14 @@ class Book(models.Model):
         extension = str(filename).split(sep='.')[-1]
         return 'book/{0}/img/cover.{1}'.format(book.pk, extension)
 
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    title = CharField(max_length=250)
-    publication_date = DateField(null=True)
+    # Blank is true. This disables fields in forms being labeled as "required" which is unwanted for search
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, blank=True)
+    title = CharField(max_length=250, blank=True)
+    publication_date = DateField(null=True, blank=True)
     date_added_db = DateField(auto_created=True, auto_now_add=True)
     date_edit_db = DateField(auto_created=True, auto_now=True)
     description = TextField(null=True)
-    isbn = CharField(max_length=14, name="ISBN", null=True)
+    isbn = CharField(max_length=14, name="ISBN", null=True, blank=True)
     cover_image = ImageField(upload_to=cover_image_path,
                              max_length=250, null=True, unique=True)
 
@@ -71,7 +72,7 @@ class Book(models.Model):
         ('HISTRY', 'History'),
         ('COOKBK', 'Cookbook')
     )
-    genre = models.CharField(max_length=6, choices=ENUM_GENRES)
+    genre = models.CharField(max_length=6, choices=ENUM_GENRES, blank=True)
 
     def __str__(self):
         return self.title + " by " + str(self.author)

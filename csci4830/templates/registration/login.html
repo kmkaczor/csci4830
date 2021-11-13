@@ -8,6 +8,7 @@
     <s>{{ login_status_mesg }}</s>
 {% else %}
 
+
     {% if form.errors %}
     {% for e in form.errors.values %}
     {{e}}
@@ -18,9 +19,23 @@
         <form action="{% url 'login' %}" method="post">
             {% csrf_token %}
 
-            <div id="login"> Username: {{ form.username }}</div>
-            Password: {{ form.password }} <br />
-            <input type="submit" value="Submit" />
+            <div id="id_username">
+                <label for="id_username">Username</label>
+                {{ form.username }}
+            </div>
+
+            <div id="id_username">
+                <label for="id_password">Password</label>
+                {{ form.password }} 
+            </div>
+            
+            <div id="id_submit_row">
+                <input type="checkbox" id="id_remember" />
+                <label for="id_remember">Remember me?</label>
+                <div id="id_submit_button">
+                    <input id="id_submit" type="submit" value="Submit" />
+                </div>
+            </div>
         </form>
     </div>
 
