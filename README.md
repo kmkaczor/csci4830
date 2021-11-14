@@ -1,20 +1,9 @@
-UPDATES (11-10-21):
-
-Pillow has been added as a dependency in order to enable the ImageField() type in django models. This allows image uploads and validation
-without having to do a bunch of really annoying stuff. To install it:
-
-    $ pip install pillow
-    
-
-
-NEW INSTRUCTIONS:
-
 Turns out python's own package manager has an updated version of django. This makes life easy on us as we don't have to only use outdated documentation:
 
 Say yes to any questions it asks.
 
-    $ sudo pip3 install Django pymysql
-    $ apt install libapache2-mod-wsgi-py3
+    $ sudo pip3 install Django pymysql pillow
+    $ sudo apt install libapache2-mod-wsgi-py3
 
 
 Don't forget to read: https://docs.djangoproject.com/en/3.2/intro/tutorial01/
