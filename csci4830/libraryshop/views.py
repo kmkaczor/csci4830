@@ -5,6 +5,8 @@ from django.db.models.base import Model
 from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.views.generic.edit import FormView
+from libraryshop.inc.db_functions import user_own_book
+# from libraryshop.inc.db_functions import user_own_book
 from libraryshop.models import Book
 from django.core.exceptions import ObjectDoesNotExist
 # from csci4830.libraryshop.models import BookSection
@@ -24,7 +26,9 @@ class SearchFormView(FormView):
 
 class CreateCollectionFormView(FormView):
     from libraryshop.forms import CreateCollectionForm
-    template_name = ''
+    template_name = 'snippets/form_page.html'
+    form_class = CreateCollectionForm
+
 
 ##############################
 ####### Function Views #######
@@ -52,31 +56,22 @@ def index(request):
 
 
 def book(request, book_id: int):
+
     errors = ''
-    print(book_id)
 
-    if (book_id == None):
-        id = 0
-
-    book: Book = Book.objects.none
-
+    book = None
     try:
         book = Book.objects.get(id=book_id)
-    except Book.DoesNotExist:
-        errors += "Book does not exist."
+    except:
+        errors += '<p>Book does not exist.</p>'
         pass
-
-    print(book)
-    # print(book.cover_image_path())
-    
-    if 
 
     context = {
         'book': book,
-        'errors': errors
+        'errors': errors,
+        'user_owns_book': request.user.has_book(book)
     }
 
-    # We are using the base template skeleton.html, which is in the templates folder
     return render(request, "book.html", context)
 
 

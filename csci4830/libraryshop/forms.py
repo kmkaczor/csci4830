@@ -14,7 +14,7 @@ class DateInput(forms.DateInput):
 
 class CreateCollectionForm(forms.Form):
     name = forms.CharField(required=True)
-    book_choices = forms.ModelChoiceField(
+    book_choices = forms.ModelMultipleChoiceField(
         queryset=Book.objects.all())  # This is absolutely not scalable!
 
 

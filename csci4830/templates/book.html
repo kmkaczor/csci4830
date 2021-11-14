@@ -3,27 +3,28 @@
 {% block title %} {{ book.title }} {% endblock %}
 
 {% block content %}
-{% if errors %}
- {{ errors }}
-{% endif %}
 
 {% if book %}
-{% load static %}
-<img class="book_cover_main" id="book_cover" src="{% get_media_prefix %}{{book.cover_image}}" />
+    {% load static %}
+    <img class="book_cover_main" id="book_cover" src="{% get_media_prefix %}{{book.cover_image}}" />
 
-Title: {{ book.title }} <br />
-Author: {{ book.author }} <br />
-isbn: {{book.ISBN}}<br />
+    Title: {{ book.title }} <br />
+    Author: {{ book.author }} <br />
+    isbn: {{book.ISBN}}<br />
 
-{% if user.is_authenticated and not  %}
-<div class="purchase_section">
-    <div section="purchase">Purchase Book: {{ book.price }}</div>
-</div>
-{% elif  %}
-<div>
-</div>
-{% endif %}
+    {% if user.is_authenticated and not user_owns_book %}
+        <div class="purchase_section">
+        <div section="purchase">Purchase Book: {{ book.price }}</div>
+        </div>
+    {% elif True %}
+        <div>
+        </div>
+    {% endif %}
 
+{% elif errors %}
+    {{ errors|safe }}
+{% else  %}
+    Please select a book via the home, search, or browse pages.
 
 {% endif %}
 

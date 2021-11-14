@@ -4,13 +4,14 @@
    max-width: 250px;
    border-right: brown ridge 3px;
    float: left;
+   height: 100%;
 
 }
 
 /* Main body of page */
 #content {
    width: 90%;
-   float: left;
+   float: right;
    position: relative;
    padding-left: 20px;
 }

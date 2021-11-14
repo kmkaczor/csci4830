@@ -6,6 +6,25 @@ from abc import ABC
 from django.contrib.auth.models import User
 from django.db.models.fields.files import FieldFile, FileField, ImageField, ImageFieldFile
 from django.db.models.fields.related import ForeignKey
+from django.core.exceptions import ObjectDoesNotExist
+
+
+class UserProfile(models.Model):
+    """This hold user options that would fit within the User model"""
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def has_book(self, book):
+        if book == None:
+            return False
+        try:
+            user_own = UserOwnBook.objects.get(
+                user_id=self.id, book_id=book.id)
+        except ObjectDoesNotExist:
+            return False
+        return True
+
+    def __str__(self):
+        return self.username
 
 
 class Author(models.Model):
@@ -72,7 +91,7 @@ class Book(models.Model):
 
 class Collection(models.Model):
     name = CharField(max_length=80, null=False)
-    user_id = ForeignKey(UserAccount, on_delete=models.DO_NOTHING, null=False)
+    user_id = ForeignKey(User, on_delete=models.DO_NOTHING, null=False)
 
 
 class BookCollectionMapping(models.Model):
@@ -113,14 +132,16 @@ class UserOwnership(models.Model):
 
     Thus inheritance looks like: models.Model -> UserOwnership -> UserOwnChapter or UserOwnBook
     """
-    user_id = models.OneToOneField(UserAccount, on_delete=models.DO_NOTHING)
+    user_id = models.OneToOneField(
+        User, on_delete=models.DO_NOTHING)
 
     class Meta:
         abstract = True
 
 
 class UserOwnChapter(UserOwnership):
-    chapter_id = models.OneToOneField(BookSection, on_delete=models.DO_NOTHING)
+    chapter_id = models.OneToOneField(
+        BookSection, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return BookSection(chapter_id=self.chapter_id) + " " + super(self)
@@ -134,7 +155,8 @@ class UserOwnChapter(UserOwnership):
 
 
 class UserOwnBook(UserOwnership):
-    book_id = models.OneToOneField(Book, on_delete=models.DO_NOTHING)
+    book_id = models.OneToOneField(
+        Book, on_delete=models.DO_NOTHING)
 
     class Meta:
         constraints = [
@@ -142,26 +164,3 @@ class UserOwnBook(UserOwnership):
                 'user_id', 'book_id'
             ], name='constraint_book_owner')
         ]
-
-# We are extending Django's built-in user account. See django.contrib.auth.models for the good stuff
-
-
-class UserAccount(models.Model):
-    """An extended version of django's built-in user model.
-
-    This may eventually be stripped out and replaced with the regular user model.
-    """
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.username
-
-    def owns_book(self, book: Book):
-        ownership = False
-        try:
-            ownership = UserOwnBook.objects.get(
-                book_id=book.id, user_id=self.id)
-        except:
-            return False
-
-        return False
