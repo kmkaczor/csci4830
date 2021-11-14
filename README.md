@@ -66,14 +66,14 @@ Install python for windows: go into powershell or windows command line and type 
 
 Once it is installed:
 
-pip3 install Django pymysql pillow
+    pip3 install Django pymysql pillow
 
 Now, we need to clone the git repository to your hard drive: $DIRECTORY here means whatever directory you plan to install to your hard drive:
 
-cd $DIRECTORY
-git clone https://github.com/kmkaczor/csci4830.git
-cd csci4830
-git checkout devel
+    cd $DIRECTORY
+    git clone https://github.com/kmkaczor/csci4830.git
+    cd csci4830
+    git checkout devel
     
 Create a text file with the contents "THISISTHEKEY" in whatever is the home folder for your user.
 
