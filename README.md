@@ -60,9 +60,9 @@ via git and then pulling. It will use my AWS database by default, so you won't h
 ==========================
 ====Home: Instructions:====
 ==========================
-If any of these commands fail, you will need to run as windows. Find "Powershell" for windows in windows search, right click on it and "Run as Adminstrator"
+If any of these commands fail, you will need to run as administrator. Find "Powershell" for windows in windows search, right click on it and "Run as Adminstrator"
 
-Install python for windows: https://www.python.org/downloads/release/python-3100/
+Install python for windows: go into powershell or windows command line and type "python3". The windows store will open and will ask to install python 3.9. Do so.
 
 Once it is installed:
 
