@@ -1,20 +1,13 @@
-UPDATES (11-10-21):
-
-Pillow has been added as a dependency in order to enable the ImageField() type in django models. This allows image uploads and validation
-without having to do a bunch of really annoying stuff. To install it:
-
-    $ pip install pillow
-    
-
-
-NEW INSTRUCTIONS:
+==========================
+====AWS: Instructions:====
+==========================
 
 Turns out python's own package manager has an updated version of django. This makes life easy on us as we don't have to only use outdated documentation:
 
 Say yes to any questions it asks.
 
-    $ sudo pip3 install Django pymysql
-    $ apt install libapache2-mod-wsgi-py3
+    $ sudo pip3 install Django pymysql pillow
+    $ sudo apt install libapache2-mod-wsgi-py3
 
 
 Don't forget to read: https://docs.djangoproject.com/en/3.2/intro/tutorial01/
@@ -28,7 +21,7 @@ do so under /var/www/
     cd csci4830
     sudo git checkout devel
     
-    sudo echo "THISISTHEKEY" > /var/www/.csci4830-secretkey
+    sudo bash -c "echo THISISTHEKEY > /var/www/.csci4830-secretkey"
     sudo chown www-data:www-data /var/www/.csci4830-secretkey
     sudo chmod 0400 /var/www/.csci4830-secretkey
 
@@ -64,7 +57,34 @@ will start up a temporary local HTTP server that you can connect to locally, jus
 via git and then pulling. It will use my AWS database by default, so you won't have to worry about that.
 
 
-==========
+==========================
+====Home: Instructions:====
+==========================
+If any of these commands fail, you will need to run as administrator. Find "Powershell" for windows in windows search, right click on it and "Run as Adminstrator"
+
+Install python for windows: go into powershell or windows command line and type "python3". The windows store will open and will ask to install python 3.9. Do so.
+
+Once it is installed:
+
+    pip3 install Django pymysql pillow
+
+Now, we need to clone the git repository to your hard drive: $DIRECTORY here means whatever directory you plan to install to your hard drive:
+
+    cd $DIRECTORY
+    git clone https://github.com/kmkaczor/csci4830.git
+    cd csci4830
+    git checkout devel
+    
+Create a text file with the contents "THISISTHEKEY" in whatever is the home folder for your user.
+
+If you run "python3 manage.py runserver" (in the csci4830/csci4830/ directory) it will complain about a non-existent key (or something). Use the directory it tells you.
+
+
+
+
+==========================
+====Optional====
+==========================
 
 This is optional. If you want to have a local testing database, do the following. Otherwise, the program is set to use my Mysql instance for project testing.
 
