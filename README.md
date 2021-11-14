@@ -58,7 +58,7 @@ via git and then pulling. It will use my AWS database by default, so you won't h
 
 
 ==========================
-====AWS: Instructions:====
+====Home: Instructions:====
 ==========================
 If any of these commands fail, you will need to run as windows. Find "Powershell" for windows in windows search, right click on it and "Run as Adminstrator"
 
