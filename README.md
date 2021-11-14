@@ -21,7 +21,7 @@ do so under /var/www/
     cd csci4830
     sudo git checkout devel
     
-    sudo echo "THISISTHEKEY" > /var/www/.csci4830-secretkey
+    sudo bash -c "echo THISISTHEKEY > /var/www/.csci4830-secretkey"
     sudo chown www-data:www-data /var/www/.csci4830-secretkey
     sudo chmod 0400 /var/www/.csci4830-secretkey
 
