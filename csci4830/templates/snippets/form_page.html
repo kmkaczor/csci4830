@@ -1,0 +1,22 @@
+{% extends 'skeleton.html' %}
+
+{% block title %} {page_title} {% endblock %}
+
+{% block content %}
+
+    {% if form.errors %}
+        {% for e in form.errors.values %}
+            {{e}}
+        {% endfor %}
+    {% endif %}
+
+    <form action="{{ url 'results' %}" method="{{ http_method }} " id="{{ form_id }}">
+        {% if http_method == post %}
+            {% csrf_token %}
+        {% endif %}
+
+        {{ form.as_p }}
+
+        <input type="submit" value="Search" />
+    </form>
+{% endblock %}

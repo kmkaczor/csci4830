@@ -1,0 +1,21 @@
+{% extends 'skeleton.html' %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+    {% if form.errors %}
+    <div class="form_errors_container">
+        {% for e in form.errors.values %}
+            <p class="error_item">{{e}}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <div class="results_book_container">
+    {% for book in results %}
+        {% include 'snippets/book_result.html' %}
+    {% endfor %}
+    </div>
+
+
+{% endblock %}

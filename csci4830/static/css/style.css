@@ -51,3 +51,18 @@ form > div > #id_submit_button {
    display: inline-block;
    width: 200px;
 }
+
+
+/**
+*
+* Book, Results
+*
+**/
+
+img.book_cover_main {
+   
+   width: auto; 
+   height: 500px;
+   max-width: 300px;
+   max-height: 500px;
+}

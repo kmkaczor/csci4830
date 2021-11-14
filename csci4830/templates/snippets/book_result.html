@@ -1,0 +1,14 @@
+<div class="book_result">
+    <div class="book_cover"> {% comment %} Image section {% endcomment %}
+        <img src="" class="book_cover_img"/>
+    </div>
+
+    <div class="book_info">{% comment %} Book data {% endcomment %}
+        <a class="book_m_title_link" href="{% url 'book' book.id %}"><div class="book_m_title">{{ book.title }}</div></a> by {{ book.author }}
+        <label>Publication Date</label><div> {{ book.publication_date }} </div>
+        <div class="book_description"> {{ book.description }} </div>
+        
+
+        <div class="book_m_title">{{ book.title }}</div>
+    </div> 
+</div>

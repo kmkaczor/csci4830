@@ -1,16 +1,37 @@
+import datetime
 from django.contrib.auth import logout
 from django.contrib.auth import logout
+from django.db.models.base import Model
+from django.db.models.query import QuerySet
 from django.shortcuts import render
-
+from django.views.generic.edit import FormView
+from libraryshop.models import Book
+from django.core.exceptions import ObjectDoesNotExist
 # from csci4830.libraryshop.models import BookSection
 
 
-# Also look at urls.py
-# Visit the very top directory (/)
+##############################
+######## Class Views #########
+##############################
+
+
+class SearchFormView(FormView):
+    from libraryshop.forms import SearchBookForm
+    template_name = 'search.html'
+    form_class = SearchBookForm
+    success_url = 'results'
+
+
+class CreateCollectionFormView(FormView):
+    from libraryshop.forms import CreateCollectionForm
+    template_name = ''
+
+##############################
+####### Function Views #######
+##############################
 
 
 def index(request):
-    from libraryshop.models import Book
     """This is the function that is executed when the root (/) url is called.
 
     It is called in urls.py (in the csci4830 controller folder, the last one)
@@ -30,92 +51,167 @@ def index(request):
     return render(request, "skeleton.html", context)
 
 
-def book(request):
-    from libraryshop.models import Book
-    # This will list all the book genres and print it in an unordered list, for example purposes
-    allGenres = Book.ENUM_GENRES
-  # Note how resultstring is initalized as a string?
-    resultstr = '<ul>'
+def book(request, book_id: int):
+    errors = ''
+    print(book_id)
 
-   # For (each) loop going through every genre, wrapping string with html list elements
-    for book in allGenres:
-        resultstr += "<li>" + book[1] + "</li>"
-    resultstr += '</ul>'
+    if (book_id == None):
+        id = 0
 
-    # Context variable. Note the pagetitle and passedVariableFromRender? You'll see them in the template files between braces: {{ pagetitle }}
+    book: Book = Book.objects.none
+
+    try:
+        book = Book.objects.get(id=book_id)
+    except Book.DoesNotExist:
+        errors += "Book does not exist."
+        pass
+
+    print(book)
+    # print(book.cover_image_path())
+    
+    if 
+
     context = {
-        'pagetitle': "Book page",
-        # Note that HTML isn't escaped because |safe is mark in the skeleton.html template.
-        'passedVariableFromRender': resultstr
+        'book': book,
+        'errors': errors
     }
 
     # We are using the base template skeleton.html, which is in the templates folder
-    return render(request, "skeleton.html", context)
+    return render(request, "book.html", context)
 
 
-def search(request):
-    # Initialize
-    from libraryshop.forms import SearchBookForm
-    hadQuery = False
-    form = SearchBookForm()
+def results(request):
+
+    if request.method != 'GET':
+        pass
+
+    sb_year = sb_month = sb_day = None
+    title = request.GET.get('title') or None  # Set to none if blank string
+    author = request.GET.get('author') or None
+    isbn = request.GET.get('isbn') or None
+    genre = request.GET.get('genre') or None
+    sb = request.GET.get('search_date_before') or None
+    if (sb != None):
+        sb = sb.split('-')
+        if (len(sb) == 3):
+            try:
+                sb_year = int(sb[0])
+                sb_month = int(sb[1])
+                sb_day = int(sb[2])
+            finally:  # Error parsing values, throw 'em all out.
+                sb_year = None
+                sb_month = None
+                sb_day = None
+
+    sa = request.GET.get('search_after')
+
+    results: QuerySet = Book.objects.all()
+
+    if title != None:
+        results = results.filter(title__icontains=title)
+    if (sb_year and sb_month and sb_day):
+        print(sb_year, sb_month, sb_day)
+        print(sb)
+        results = results.filter(
+            publication_date__lt=datetime.date(sb_year, sb_month, sb_day))
+    if (isbn):
+        results = results.filter(isbn__exact=isbn)
+    if (genre):
+        results = results.filter(genre__exact=genre)
 
     context = {
-        'form': form
+        'results': results
     }
 
+    return render(request, "results.html", context)
+
+
+"""
+def results(request):
+    from libraryshop.forms import SearchBookForm
+    from libraryshop.inc.html_functions import print_book_result
+    # Initialize
+
+    hadQuery = False
+    form = SearchBookForm()
+    context = {
+        'form': form,
+        'hadQuery': False
+    }
     # Search for submitted POST queries
     if request.method != 'POST':
         return render(request, "search.html", context)
+    print("test")
 
-    title = request.POST['title']
-    author = request.POST['author']
-    isbn = request.POST['ISBN']
-    genre = request.POST['genre']
-    date_before_month = request.POST['search_date_before_month']
-    date_before_day = request.POST['search_date_before_day']
-    date_before_year = request.POST['search_date_before_year']
+    title = request.POST['title']  # String
+    author = request.POST['author']  # Integer (id)
+    isbn = request.POST['ISBN']  # String
+    genre = request.POST['genre']  # Enumeration (string)
+    # Integer (1 to 12)
 
-    date_after_month = request.POST['search_date_after_month']
-    date_after_day = request.POST['search_date_after_day']
-    date_after_year = request.POST['search_date_after_year']
+    date_before = str(request.POST['search_date_before']).split('-')
+    # if not date_before == ['']:
+    date_after = str(request.POST['search_date_after'].split('-'))
+    if not date_after == ['']:
+        date_after_year = date_after[0]
+        date_after_month = date_after[1]
+        date_after_day = date_after[2]
 
     from libraryshop.models import Book
     from django.db.models import Q  # Trust the plan!
+    import datetime
 
     results = Book.objects.all()
 
     if (title != "" and title != None):
         hadQuery = True
-        print("title")
         results = results.filter(title__icontains=title)
     if (author):
         hadQuery = True
-        print("author")
         results = results.filter(author__exact=author)
-        print(results)
     if (isbn):
         hadQuery = True
         results = results.filter(isbn__icontains=isbn)
     if (genre):
         hadQuery = True
         results = results.filter(genre__exact=genre)
-    if (date_before):
-        pass
-        #results = results.filter()
+    if (len(date_before) == 3):
+        date_before_year = int(date_before[0])
+        date_before_month = int(date_before[1])
+        date_before_day = int(date_before[2])
+        if (date_before_year):
+            if (date_before_month and date_before_month >= 1 and date_before_month <= 12):
+                if (date_before_day and date_before_day >= 1 and date_before_day <= 31):
+                    hadQuery = True
+                    results = results.filter(publication_date__lt=datetime.date(
+                        date_before_year, date_before_month, date_before_day))  # year/month/day
+    if (len(date_after) == 3):
+        date_after_year = int(date_after[0])
+        date_after_month = int(date_after[1])
+        date_after_day = int(date_after[2])
+        if (date_after_year):
+            if (date_after_month and date_after_month >= 1 and date_after_month <= 12):
+                if (date_after_day and date_after_day >= 1 and date_after_day <= 31):
+                    hadQuery = True
+                    results = results.filter(publication_date__lt=datetime.date(
+                        date_after_year, date_after_month, date_after_day))  # year/month/day
+
+    context['hadQuery'] = hadQuery
 
     if hadQuery == False:
         return render(request, "search.html", context)
 
-    print(results)
+    print_book_result(results)
 
     return render(request, "search.html", context)
+"""
 
 
 def browse(request):
     pass
 
-
 ######
+
 
 def login(request):
     from libraryshop.models import User
@@ -146,3 +242,4 @@ def login(request):
 
 def logout_view(request):
     logout(request)
+    pass

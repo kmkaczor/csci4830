@@ -1,32 +1,21 @@
 from django.db.models.constraints import UniqueConstraint
-from django.db.models.fields import CharField, DateField, EmailField, IntegerField, PositiveIntegerField, TextField
+from django.db.models.fields import CharField, DateField, EmailField, FloatField, IntegerField, PositiveIntegerField, TextField
 from django.db import models
 from django.db.models.deletion import DO_NOTHING
 from abc import ABC
 from django.contrib.auth.models import User
 from django.db.models.fields.files import FieldFile, FileField, ImageField, ImageFieldFile
-
-
-# We are extending Django's built-in user account. See django.contrib.auth.models for the good stuff
-class UserAccount(models.Model):
-    """An extended version of django's built-in user model.
-
-    This may eventually be stripped out and replaced with the regular user model.
-    """
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.username
+from django.db.models.fields.related import ForeignKey
 
 
 class Author(models.Model):
     """Table of authors.
     """
-    firstname = CharField(max_length=60)
+    firstname = CharField(max_length=60, null=True, blank=True)
     lastname = CharField(max_length=60)
 
     def __str__(self):
-        return self.firstname + ' ' + self.lastname
+        return (self.firstname or '') + ' ' + (self.lastname or '')
 
 
 class Book(models.Model):
@@ -35,15 +24,17 @@ class Book(models.Model):
         return 'book/{0}/img/cover.{1}'.format(book.pk, extension)
 
     # Blank is true. This disables fields in forms being labeled as "required" which is unwanted for search
-    author = models.ForeignKey(Author, on_delete=models.CASCADE, blank=True)
-    title = CharField(max_length=250, blank=True)
+    author = models.ForeignKey(
+        Author, on_delete=models.CASCADE, null=False)
+    title = CharField(max_length=250, null=False)
     publication_date = DateField(null=True, blank=True)
     date_added_db = DateField(auto_created=True, auto_now_add=True)
     date_edit_db = DateField(auto_created=True, auto_now=True)
-    description = TextField(null=True)
+    description = TextField(null=True, blank=True)
     isbn = CharField(max_length=14, name="ISBN", null=True, blank=True)
+    price = FloatField(null=True, blank=True)
     cover_image = ImageField(upload_to=cover_image_path,
-                             max_length=250, null=True, unique=True)
+                             max_length=250, blank=True, null=True)
 
     # Workaround for saved images being saved according to ID before ID was assigned, thus creating None directory.
 
@@ -69,6 +60,7 @@ class Book(models.Model):
         ('HSTFIC', 'Historial Fiction'),
         ('CHLDRN', 'Childrens'),
         ('ATOBIO', 'Autobiography'),
+        ('PHILOS', 'Philosophy'),
         ('HISTRY', 'History'),
         ('COOKBK', 'Cookbook')
     )
@@ -76,6 +68,16 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title + " by " + str(self.author)
+
+
+class Collection(models.Model):
+    name = CharField(max_length=80, null=False)
+    user_id = ForeignKey(UserAccount, on_delete=models.DO_NOTHING, null=False)
+
+
+class BookCollectionMapping(models.Model):
+    book_id = ForeignKey(Book, on_delete=DO_NOTHING, null=False)
+    collection_id = ForeignKey(Collection, on_delete=DO_NOTHING, null=False)
 
 
 class BookSection(models.Model):
@@ -140,3 +142,26 @@ class UserOwnBook(UserOwnership):
                 'user_id', 'book_id'
             ], name='constraint_book_owner')
         ]
+
+# We are extending Django's built-in user account. See django.contrib.auth.models for the good stuff
+
+
+class UserAccount(models.Model):
+    """An extended version of django's built-in user model.
+
+    This may eventually be stripped out and replaced with the regular user model.
+    """
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.username
+
+    def owns_book(self, book: Book):
+        ownership = False
+        try:
+            ownership = UserOwnBook.objects.get(
+                book_id=book.id, user_id=self.id)
+        except:
+            return False
+
+        return False

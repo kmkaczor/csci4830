@@ -4,6 +4,9 @@
     {% if user.is_authenticated %}
         <li><a href="{% url 'settings' %}">User Settings</li>
         <li><a href="{% url 'logout' %}">Logout [{{ user.username }}]</a></li>
+        {% if user.is_superuser %}
+            <li><a href="{% url 'admin:index' %}">Administration page</a></li>
+        {% endif %}
     {% else %}
         <li><a href="{% url 'login' %}">Login<a></li>
     {% endif %}
