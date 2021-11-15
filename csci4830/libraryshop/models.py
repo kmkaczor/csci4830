@@ -1,3 +1,4 @@
+from enum import unique
 from django.contrib.admin.sites import AlreadyRegistered
 from django.db.models.constraints import UniqueConstraint
 from django.db.models.fields import CharField, DateField, EmailField, FloatField, IntegerField, PositiveIntegerField, TextField
@@ -20,12 +21,16 @@ def user_own_book(user, book):
     except ObjectDoesNotExist:
         return False
 
-    return True
+        if user_own:
+            return True
+
+    return False
 
 
 def user_purchase_book(user, book):
     if user == None or book == None:
         return InvalidQuery
+
     if user_own_book(user, book):
         raise AlreadyRegistered
 
@@ -203,9 +208,10 @@ class UserOwnChapter(UserOwnership):
 
 
 class UserOwnBook(models.Model):
-    user_id = models.OneToOneField(User, on_delete=models.DO_NOTHING)
+    user_id = models.OneToOneField(
+        User, on_delete=models.DO_NOTHING, unique=False)
     book_id = models.OneToOneField(
-        Book, on_delete=models.DO_NOTHING)
+        Book, on_delete=models.DO_NOTHING, unique=False)
 
     class Meta:
         constraints = [

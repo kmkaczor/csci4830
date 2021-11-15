@@ -24,7 +24,12 @@
         There are no books registered in the database.
     {% endif %}
     {% for book in results %}
+        <div id="content">
+            <div id="result">
+                <div class="detail">
+                    <table class="result_table">
         {% include 'snippets/book_result.html' %}
+        </table></div></div></div>
     {% endfor %}
     </div>
     </div>

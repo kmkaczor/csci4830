@@ -14,11 +14,13 @@
     </div> 
 </div>
 -->
-            <div id="content">
-                <div id="result">
+               <tr><td rowspan="6">
+                    {% load static %}
+                    <a href="{% url 'book' book.id %}">
+                    <img src="{% get_media_prefix %}{{ book.cover_image }}" alt="book_cover" class="book_cover">
+                    </a>
+                    </td></tr>
 
-                    <div class="detail">
-                        <table class="result_table">
                             <tr>
                                 <th>Title</th>
                                 <td class="row_title"><a href="{% url 'book' book.id %}">
@@ -26,36 +28,30 @@
                             </tr>
                             <tr>
                                 <th>Author</th>
-                                <td class="row_author">{{ author }}</td>
+                                <td class="row_author">by {{ book.author }}</td>
                             </tr>
                             <tr>
                                 <th>Publication Date</th>
                                 <td class="row_date">{{ book.publication_date }} </td>
                             </tr>
                             <tr>
-                                {% if  user_has_book %}
-                                <th>Price</th>
-                                <td class="row_price">Book already purchased!</td>
-                                {% else %}
-                                <th>Price $</th>
-                                <td class="row_price">{{book.price|default_if_none:'Free'}}</td>
-                                {% endif %}
+
+                                <th>Price $</th> 
+                                {% for owned_book in owned_books %}
+                                    {% if owned_book == book %}
+                                        <td class="row_price">Book already purchased!</td>
+                                  {% endif %}
+                                {% endfor %}
+   
+                                    <td class="row_price"><a href="{% url 'buybook' book.id %}"> {{book.price|default_if_none:'Free'}}</a></td>
                             </tr>
+
                             <tr>
                                 <th>Description</th>
                                 <td class="row_description">{{ book.description }}</td>
                             </tr>
-                        </table>
-                    </div>
 
-                    {% load static %}
-                    <a href="{% url 'book' book.id %}">
-                    <img src="{% get_media_prefix %}{{ book.cover_image }}" alt="book_cover" class="book_cover">
-                    </a>
-                    
-                    
+                
+                                        
 
-                </div>
-            </div>
-        </div>
         <!-- main_txt  END -->

@@ -73,17 +73,21 @@ def purchase(request, book_id):
         # I don't have time to code better validation!
         errors += ['You should not be here.']
 
+    new_purchase = user_purchase_book(request.user, book)
     if book or not errors:
         try:
-            new_purchase = user_purchase_book(request.user, book)
+            pass
         except AlreadyRegistered:
             errors += ['You already own this book. Click <a href="">here</a> to read it!']
         except InvalidQuery:
             errors += ['Something happened with the query!']
         except Exception as e:
             errors += [str(e.__class__) + 'error']
+        finally:
+            new_purchase = None
 
     context = {
+        'errors': errors,
         'book': book
     }
 
@@ -187,8 +191,16 @@ def results(request):
     if (genre):
         results = results.filter(genre__exact=genre)
 
+    already_owned = {}
+    for book in results:
+        if user_own_book(request.user, book):
+            already_owned[book] = True
+
+    print("aa", already_owned)
+
     context = {
         'results': results,
+        'owned_books': already_owned
     }
 
     return render(request, "results.html", context)

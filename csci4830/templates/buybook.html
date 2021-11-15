@@ -10,12 +10,15 @@
         {% endfor %}
     {% elif user.is_authenticated and not book_purchased %}
 
-    <form action="{% url 'purchase' book.id %}" method="post" id="buyform">
-    <p>Click the button to confirm your purchase of {{book.title}} by {{book.author}}.</p>
+        <form action="{% url 'purchase' book.id %}" method="post" id="buyform">
+        <p>Click the button to confirm your purchase of {{book.title}} by {{book.author}}.</p>
             {% csrf_token %}
-
-
         <input type="submit" value="Purchase" />
-    </form>
-    {% endif %}
+        </form>
+    {% elif user.is_authenticated and book_purchased %}
+    <p> You have already purchased this book </p>
+    {% else %}
+    <p> You must be logged in to purchase a book.</p>
+
+    {%endif%}
 {% endblock %}
