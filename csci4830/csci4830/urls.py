@@ -39,5 +39,4 @@ urlpatterns = [  # The name field is referenced in templates: see templates/navb
     path('settings', views.login, name='settings'),
     path('accounts/', include('django.contrib.auth.urls'))
 
-
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Allow static files for developemnt mode
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)  # Allow static files for developemnt mode
