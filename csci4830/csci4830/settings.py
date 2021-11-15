@@ -39,7 +39,8 @@ except Exception as err:
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1",  # Allow development environment
                  # Korey's AWS instance -- also development database
-                 AWS_DEVEL_DB, "ec2-3-16-112-104.us-east-2.compute.amazonaws.com"
+                 AWS_DEVEL_DB, "ec2-3-16-112-104.us-east-2.compute.amazonaws.com",
+                 "3.135.240.54"
                  # Add your AWS here
                  # "0.0.0.0"
 
