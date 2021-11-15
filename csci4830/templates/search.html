@@ -3,6 +3,13 @@
 {% block title %} Book Search {% endblock %}
 
 {% block content %}
+
+<style>
+    #content {
+        bottom: 40px;
+    }
+</style>
+
 {% if form.errors %}
 {% for e in form.errors.values %}
 {{e}}
