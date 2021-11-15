@@ -5,7 +5,6 @@
 {% block content %}
 {% if user.is_authenticated %}
     <div>You are already logged in, {{ user.username }}. Go to your account or logout.</div>
-    <s>{{ login_status_mesg }}</s>
 {% else %}
 
 

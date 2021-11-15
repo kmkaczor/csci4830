@@ -133,6 +133,8 @@ button:hover {
   position: absolute;
   margin-left: clamp(100px, 10vw, 170px);
 }
+
+
 /* book search result END */
 
 /* Main content END */

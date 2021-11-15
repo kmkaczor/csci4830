@@ -1,3 +1,6 @@
+from django.contrib.admin.sites import AlreadyRegistered
+from django.contrib.auth.decorators import login_required
+from django.db.models.query_utils import InvalidQuery
 from libraryshop.models import UserOwnBook
 import datetime
 from django.contrib import auth
@@ -7,12 +10,13 @@ from django.db.models.base import Model
 from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.views.generic.edit import FormView
-from libraryshop.inc.db_functions import user_own_book
+# user_own_book, user_purchase_book, get_books_in_collection
+#from libraryshop.inc.db_functions import *
 # from libraryshop.inc.db_functions import user_own_book
-from libraryshop.models import Book, has_book
+from libraryshop.models import Book
 from django.core.exceptions import ObjectDoesNotExist
 # from csci4830.libraryshop.models import BookSection
-
+from libraryshop.models import user_purchase_book, user_own_book
 
 ##############################
 ######## Class Views #########
@@ -57,13 +61,71 @@ def index(request):
     return render(request, "skeleton.html", context)
 
 
-def mybooks(request):
-    mybooks = UserOwnBook.objects.filter(user_id=request.user.id)
-    print(mybooks)
-    context = {
+@login_required
+def purchase(request, book_id):
+    errors = []
+    try:
+        book: Book = Book.objects.get(id=book_id)
+    except:
+        book = None
 
+    if not request.POST:
+        # I don't have time to code better validation!
+        errors += ['You should not be here.']
+
+    if book or not errors:
+        try:
+            new_purchase = user_purchase_book(request.user, book)
+        except AlreadyRegistered:
+            errors += ['You already own this book. Click <a href="">here</a> to read it!']
+        except InvalidQuery:
+            errors += ['Something happened with the query!']
+        except Exception as e:
+            errors += [str(e.__class__) + 'error']
+
+    context = {
+        'book': book
     }
-    return render(request, "book.html", context)
+
+    return render(request, "purchase.html", context)
+
+
+def buybook(request, book_id):
+
+    errors = []
+    user_own = False
+    try:
+        book: Book = Book.objects.get(id=book_id)
+    except:
+        book = None
+        errors += ['Book does not exist!']
+
+    if (book != None):
+        user_own = user_own_book(request.user, book)
+
+    context = {
+        'errors': errors,
+        'book': book,
+        'book_purchased': user_own
+    }
+    return render(request, "buybook.html", context)
+
+
+def mybooks(request):
+    myown = UserOwnBook.objects.filter(user_id=request.user.id)
+
+    # for i in myown:
+    #mybooks = Book.objects.filter(id=i.id)
+
+    books = []
+    for ownership in myown:
+        books += [ownership.book_id]
+    print(books)
+
+    context = {
+        'results': books
+    }
+    return render(request, "results.html", context)
 
 
 def book(request, book_id: int):
@@ -80,7 +142,7 @@ def book(request, book_id: int):
     context = {
         'book': book,
         'errors': errors,
-        'user_owns_book': has_book(request.user, book)
+        'user_owns_book': user_own_book(request.user, book)
     }
 
     return render(request, "book.html", context)
@@ -126,7 +188,7 @@ def results(request):
         results = results.filter(genre__exact=genre)
 
     context = {
-        'results': results
+        'results': results,
     }
 
     return render(request, "results.html", context)

@@ -1,3 +1,4 @@
+<!---
 <div class="book_result">
     <div class="book_cover"> {% comment %} Image section {% endcomment %}
         <img src="" class="book_cover_img"/>
@@ -12,3 +13,49 @@
         <div class="book_m_title">{{ book.title }}</div>
     </div> 
 </div>
+-->
+            <div id="content">
+                <div id="result">
+
+                    <div class="detail">
+                        <table class="result_table">
+                            <tr>
+                                <th>Title</th>
+                                <td class="row_title"><a href="{% url 'book' book.id %}">
+                                {{ book.title }}</a></td>
+                            </tr>
+                            <tr>
+                                <th>Author</th>
+                                <td class="row_author">{{ author }}</td>
+                            </tr>
+                            <tr>
+                                <th>Publication Date</th>
+                                <td class="row_date">{{ book.publication_date }} </td>
+                            </tr>
+                            <tr>
+                                {% if  user_has_book %}
+                                <th>Price</th>
+                                <td class="row_price">Book already purchased!</td>
+                                {% else %}
+                                <th>Price $</th>
+                                <td class="row_price">{{book.price|default_if_none:'Free'}}</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                <th>Description</th>
+                                <td class="row_description">{{ book.description }}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    {% load static %}
+                    <a href="{% url 'book' book.id %}">
+                    <img src="{% get_media_prefix %}{{ book.cover_image }}" alt="book_cover" class="book_cover">
+                    </a>
+                    
+                    
+
+                </div>
+            </div>
+        </div>
+        <!-- main_txt  END -->

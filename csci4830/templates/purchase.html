@@ -1,0 +1,15 @@
+{% extends 'skeleton.html' %}
+
+{% block title %} Book Purchased {% endblock %}
+
+{% block content %}
+    {% if errors %}
+        <ul>
+        {% for error in errors %}
+            <li>{{error}}</li>
+        {% endfor %}
+    {% elif user.is_authenticated %}
+        Congrats on your purchase! <a href="download">Click here to download!</a>
+        Alternatively, your books page should have download links.
+    {% endif %}
+{% endblock %}

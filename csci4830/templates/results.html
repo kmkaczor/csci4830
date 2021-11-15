@@ -10,7 +10,15 @@
         {% endfor %}
     </div>
     {% endif %}
-    
+
+    <!-- Main_body TOP -->
+    <div id="main_body">
+        <h1>Search Results</h1>
+        <!-- main_txt  TOP-->
+        <div id="main_txt">
+
+            <hr />
+
     <div class="results_book_container">
     {% if not results %}
         There are no books registered in the database.
@@ -18,6 +26,7 @@
     {% for book in results %}
         {% include 'snippets/book_result.html' %}
     {% endfor %}
+    </div>
     </div>
 
 

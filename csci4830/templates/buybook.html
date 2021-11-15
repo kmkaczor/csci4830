@@ -1,0 +1,21 @@
+{% extends 'skeleton.html' %}
+
+{% block title %} Purchase Book {% endblock %}
+
+{% block content %}
+    {% if errors %}
+        <ul>
+        {% for error in errors %}
+            <li>{{error}}</li>
+        {% endfor %}
+    {% elif user.is_authenticated and not book_purchased %}
+
+    <form action="{% url 'purchase' book.id %}" method="post" id="buyform">
+    <p>Click the button to confirm your purchase of {{book.title}} by {{book.author}}.</p>
+            {% csrf_token %}
+
+
+        <input type="submit" value="Purchase" />
+    </form>
+    {% endif %}
+{% endblock %}
