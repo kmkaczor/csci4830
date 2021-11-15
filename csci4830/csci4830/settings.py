@@ -167,7 +167,7 @@ STATIC_ROOT = BASE_DIR / "static"
 print('sr: ' + str(STATIC_ROOT))
 
 STATICFILES_DIRS = [
-    BASE_DIR / "libraryshop",
+    #BASE_DIR / 'static/',
 ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
