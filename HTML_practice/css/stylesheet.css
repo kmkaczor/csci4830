@@ -95,13 +95,9 @@ body {
   padding: clamp(30px, 2vw, 50px);
 }
 
-/* Login sign up form TOP */
-#login_signup form {
-  border: 3px solid #f1f1f1;
-}
-
+/* Login sign up, search form TOP */
 /* Full-width inputs */
-#login_signup input[type=text], #login_signup input[type=password] {
+input, select {
   width: clamp(200px, 75%, 600px);
   padding: 12px 20px;
   margin: 8px 0;
@@ -111,8 +107,8 @@ body {
 }
 
 /* Set a style for all buttons */
-#login_signup button {
-  background-color: #e4c170;
+button {
+  background-color: rgb(180, 139, 85);
   color: rgb(0, 0, 0);
   padding: 14px 20px;
   margin: 8px 0;
@@ -122,60 +118,10 @@ body {
 }
 
 /* Add a hover effect for buttons */
-#login_signup button:hover {
+button:hover {
   background-color: #cfb066;
 }
-/* Login sign up form END */
-
-/* search TOP */
-.wrapper {
-  background: rgba(0, 0, 0, 0.6);
-  max-width: 550px;
-  width: 100%;
-  padding: 7px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.wrapper .input {
-  width: 85%;
-  padding: 5px 15px;
-  border: 0;
-  border-radius: 8px;
-  font-weight: bold;
-}
-
-.searchbtn {
-  background: #ffd46e;
-  width: 10%;
-  border-radius: 8px;
-  margin-left: 5px;
-  position: relative;
-  /* cursor: pointer; */
-}
-
-.searchbtn .fas {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.searchbtn button {
-  background: #ffffff00;
-  padding: 10%;
-  border-radius: 8px;
-  padding: 30% 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  cursor: pointer;
-}
-
-
-/* search END */
+/* Login sign up, search form END */
 
 /* Main content END */
 

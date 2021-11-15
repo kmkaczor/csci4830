@@ -56,38 +56,56 @@
             <hr>
     
             <div id="content">
-                <h2>Search with title or author name</h2>
+
+
+                <h2>Search</h2>
+                <p>*Please Enter one of the search options below to search.</p>
 
                 <div class="wrapper">
-                    <input type="text" class="input" placeholder="Search with Title, Author ..." name="search">
-                    <div class="searchbtn">
-                        <button type="submit"><i class="fas fa-search"></i></button>
-                    </div>
+                    <form action="result" method="get">
+                        <label for="title"><b>Title</b></label>
+                        <input type="text" placeholder="Enter Title" name="title">
+
+                        <label for="author"><b>Author</b></label>
+                        <input type="text" placeholder="Enter Author name" name="author">
+
+                        <label for="ISBN"><b>ISBN</b></label>
+                        <input type="text" placeholder="Enter ISBN" name="ISBN" maxlength="14">
+
+                        <label for="genre"><b>Genre</b></label>
+                        <select name="genre">
+                            <option value selected>----------</option>
+                            <option value="HORROR">Horror</option>
+                            <option value="ROMANC">Romance</option>
+                            <option value="NONFIC">Non-fiction</option>
+                            <option value="FANTAS">Fantasy</option>
+                            <option value="SCIFIC">Sience Fiction</option>
+                            <option value="MYSTER">Mystery</option>
+                            <option value="HSTFIC">Historical Fiction</option>
+                            <option value="CHLDRN">Childrens</option>
+                            <option value="ATOBIO">Autobiography</option>
+                            <option value="PHILOS">Philosophy</option>
+                            <option value="HISTRY">History</option>
+                            <option value="COOKBK">Cookbook</option>
+                            <option value="TEXTBK">Textbook</option>
+                        </select>
+
+                        <label for="date_before">Search date before</label>
+                        <input type="date" name="date_before">
+
+                        <label for="date_after">Search date after</label>
+                        <input type="date" name="date_after">
+
+                        <br>
+
+                        <!-- <input type="submit" value="Search"> -->
+                        <button type="submit" value="Search">Search</button>
+
+                    </form>
                 </div>
-
-                <br>
-                <h2>Search with genre</h2>
-                <p>*Choose genre you are looking for.</p>
-
-                <div class="wrapper">
-                    <select name="genre" class="input">
-                        <option value="novel">Novel</option>
-                        <option value="textbook">Textbook</option>
-                        <option value="something1">something1</option>
-                        <option value="somethign2">something2</option>
-                    </select>
-
-                    <div class="searchbtn">
-                        <button type="submit"><i class="fas fa-search"></i></button>
-                    </div>
-                </div>
-                
             </div>
         </div>
         <!-- main_txt  END -->
-    
-    
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     
         <a href="#logo">to Top</a>
         <p>copyright&copy;2021</p>
