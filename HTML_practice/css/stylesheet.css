@@ -46,7 +46,7 @@ body {
 	color: rgb(22, 21, 37);
   padding: 1%;
   padding-top: 0.5%;
-  padding-bottom: 0.5px;
+  padding-bottom: 1px;
 	margin-left: -.8%;
 	/* display: inline-block; */
 }
@@ -122,6 +122,18 @@ button:hover {
   background-color: rgb(195, 156, 105);
 }
 /* Login sign up, search form END */
+
+
+/* book search result TOP */
+#result img {
+  width: clamp(80px, 10vw, 150px);
+}
+
+#result table {
+  position: absolute;
+  margin-left: clamp(100px, 10vw, 170px);
+}
+/* book search result END */
 
 /* Main content END */
 
