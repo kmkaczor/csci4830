@@ -44,19 +44,22 @@ body {
 #nav a {
 	font-size: clamp(13px, 2vw, 25px);
 	color: rgb(22, 21, 37);
-  padding-bottom: .05%;
-	margin-left: 1vw;
+  padding: 1%;
+  padding-top: 0.5%;
+  padding-bottom: 0.5px;
+	margin-left: -.8%;
 	/* display: inline-block; */
 }
 
 /* current page user is on */
 #current {
-  background-color: rgba(0, 0, 0, 0.342);
+  background-color: rgb(180, 139, 85);
 }
 
 #nav a:hover {
-	color: #ffffff;
-	background-color: rgba(36, 36, 36, 0.657);
+	/* color: #ffffff;
+	background-color: rgba(36, 36, 36, 0.657); */
+  background-color: rgb(180, 139, 85);
 }
 /* Header and Navbar END */
 
@@ -91,4 +94,89 @@ body {
 #content {
   padding: clamp(30px, 2vw, 50px);
 }
+
+/* Login sign up form TOP */
+#login_signup form {
+  border: 3px solid #f1f1f1;
+}
+
+/* Full-width inputs */
+#login_signup input[type=text], #login_signup input[type=password] {
+  width: clamp(200px, 75%, 600px);
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+#login_signup button {
+  background-color: #e4c170;
+  color: rgb(0, 0, 0);
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: clamp(200px, 75%, 600px);
+}
+
+/* Add a hover effect for buttons */
+#login_signup button:hover {
+  background-color: #cfb066;
+}
+/* Login sign up form END */
+
+/* search TOP */
+.wrapper {
+  background: rgba(0, 0, 0, 0.6);
+  max-width: 550px;
+  width: 100%;
+  padding: 7px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.wrapper .input {
+  width: 85%;
+  padding: 5px 15px;
+  border: 0;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.searchbtn {
+  background: #ffd46e;
+  width: 10%;
+  border-radius: 8px;
+  margin-left: 5px;
+  position: relative;
+  /* cursor: pointer; */
+}
+
+.searchbtn .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.searchbtn button {
+  background: #ffffff00;
+  padding: 10%;
+  border-radius: 8px;
+  padding: 30% 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+
+/* search END */
+
 /* Main content END */
+
+
