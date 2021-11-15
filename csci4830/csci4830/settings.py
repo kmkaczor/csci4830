@@ -22,8 +22,8 @@ from pathlib import Path
 # <!> running apache or django's own web instance, and will let you know exactly where it is looking
 # <!> in the log files.
 
-AWS_DEVEL_DB = "13.58.197.121"
-
+#AWS_DEVEL_DB = "13.58.197.121"
+AWS_DEVEL_DB = '3.135.240.54'
 # This will use a secret key file in the apache user's home -- in ubuntu this is /var/www
 sk_file = str(Path.home()) + "/.csci4830-secretkey"
 SECRET_KEY = ""
