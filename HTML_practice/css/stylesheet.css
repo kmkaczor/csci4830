@@ -130,9 +130,20 @@ button:hover {
 }
 
 #result table {
+  width: 50%;
+  max-width: 600px;
   position: absolute;
   margin-left: clamp(100px, 10vw, 170px);
 }
+
+#result th {
+  width: 100px;
+}
+#result table td {
+  word-break: break-all;
+}
+
+
 /* book search result END */
 
 /* Main content END */
