@@ -215,11 +215,12 @@ def login(request):
     login_status_mesg = ''
     postUsername = request.POST.get('username')
     postPassword = request.POST.get('password')
-    session_user = None
+    session_user = authenticate(
+        request, username=postUsername, password=postPassword)
 
     if User.objects.filter(username=postUsername).count() == 0:
         login_status_mesg += 'User does not exist!'
-    elif (session_user := authenticate(request, username=postUsername, password=postPassword)) == None:
+    elif session_user == None:
         login_status_mesg += 'Invalid username and password combination!'
     # else:
         # login_status_mesg += 'Invalid username and password combination!'
