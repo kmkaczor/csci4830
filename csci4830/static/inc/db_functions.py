@@ -14,16 +14,3 @@ def user_own_book(user, book):
         return False
     return True
 
-
-def has_book(user, book):
-    if book == None:
-        return False
-
-    try:
-        user_own = UserOwnBook.objects.get(user_id=user.id, book_id=book.id)
-    except ObjectDoesNotExist:
-        return False
-    return True
-
-
-setattr(User, "has_book", has_book)

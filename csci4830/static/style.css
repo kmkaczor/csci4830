@@ -67,3 +67,19 @@ img.book_cover_main {
    max-width: 300px;
    max-height: 500px;
 }
+
+/**
+*
+* Logo
+*
+**/
+#logo_title {
+	padding-bottom: 1vw;
+}
+
+#logoimg {
+
+  width: 80px;
+  display: inline;
+  margin-left: -10vw;
+}

@@ -1,0 +1,182 @@
+/* 
+    DATE: 11/05/2021
+    NAME: Takahiro Suzuki
+
+    This is CSS stylesheet for all the pages to look pretty.
+ */
+
+body {
+  margin: 0;
+  padding: 0;
+  /* background: #522500c9; */
+  background: rgb(228, 181, 107);
+  background-image: url("../images/bookshelf_background.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  text-align: center;
+}
+
+/* Header and Navbar TOP */
+#header {	
+  background: rgb(180, 139, 85);
+}
+
+#logo_title {
+	padding-bottom: 1vw;
+}
+
+#logo {
+  width: clamp(80px, 10vw, 150px);
+  display: inline;
+  margin-left: -10vw;
+}
+
+#logo_title h1 {
+  display: inline;
+  font-size: clamp(30px, 5vw, 60px);
+}
+
+#nav {
+  background-image: linear-gradient(to bottom, #f6b10e, #e4c170, #f19346);
+}
+
+#nav a {
+	font-size: clamp(13px, 2vw, 25px);
+	color: rgb(22, 21, 37);
+  padding: 1%;
+  padding-top: 0.5%;
+  padding-bottom: 0.5px;
+	margin-left: -.8%;
+	/* display: inline-block; */
+}
+
+/* current page user is on */
+#current {
+  background-color: rgb(180, 139, 85);
+}
+
+#nav a:hover {
+	/* color: #ffffff;
+	background-color: rgba(36, 36, 36, 0.657); */
+  background-color: rgb(180, 139, 85);
+}
+/* Header and Navbar END */
+
+/* Main content TOP */
+#main_body {
+	background: #e4e4e4;
+  display:inline-block;
+  width: clamp(400px, 70%, 1000px);
+  margin: 10px;
+  margin-top: clamp(10px, 3%, 30px);
+  border-radius: 15px;
+}
+
+#main_txt {
+  text-align: left;
+}
+
+#main_body h1 {
+  font-size: clamp(30px, 5vw, 50px);
+}
+
+/* break line */
+#main_body hr {
+  margin: 10px;
+}
+
+#discription {
+  background: #eed69e;
+  padding: clamp(30px, 2vw, 50px);
+}
+
+#content {
+  padding: clamp(30px, 2vw, 50px);
+}
+
+/* Login sign up form TOP */
+#login_signup form {
+  border: 3px solid #f1f1f1;
+}
+
+/* Full-width inputs */
+#login_signup input[type=text], #login_signup input[type=password] {
+  width: clamp(200px, 75%, 600px);
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+#login_signup button {
+  background-color: #e4c170;
+  color: rgb(0, 0, 0);
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: clamp(200px, 75%, 600px);
+}
+
+/* Add a hover effect for buttons */
+#login_signup button:hover {
+  background-color: #cfb066;
+}
+/* Login sign up form END */
+
+/* search TOP */
+.wrapper {
+  background: rgba(0, 0, 0, 0.6);
+  max-width: 550px;
+  width: 100%;
+  padding: 7px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.wrapper .input {
+  width: 85%;
+  padding: 5px 15px;
+  border: 0;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.searchbtn {
+  background: #ffd46e;
+  width: 10%;
+  border-radius: 8px;
+  margin-left: 5px;
+  position: relative;
+  /* cursor: pointer; */
+}
+
+.searchbtn .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.searchbtn button {
+  background: #ffffff00;
+  padding: 10%;
+  border-radius: 8px;
+  padding: 30% 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+
+/* search END */
+
+/* Main content END */
+
+

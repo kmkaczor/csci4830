@@ -1,8 +1,9 @@
 <ul>
     <li><a href="{% url 'index' %}"> Home</li>
+    <li><a href="{% url 'browse' %}">Browse all books</li>
     <li><a href="{% url 'search' %}">Search Books</li>
     {% if user.is_authenticated %}
-        <li><a href="{% url 'settings' %}">User Settings</li>
+        <li><a href="{% url 'mybooks' %}">My Books</li>
         <li><a href="{% url 'logout' %}">Logout [{{ user.username }}]</a></li>
         {% if user.is_superuser %}
             <li><a href="{% url 'admin:index' %}">Administration page</a></li>

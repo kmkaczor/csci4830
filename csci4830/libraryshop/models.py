@@ -9,19 +9,23 @@ from django.db.models.fields.related import ForeignKey
 from django.core.exceptions import ObjectDoesNotExist
 
 
+def has_book(user, book):
+    if book == None:
+        return False
+
+    try:
+        user_own = UserOwnBook.objects.get(user_id=user.id, book_id=book.id)
+    except ObjectDoesNotExist:
+        return False
+    return True
+
+
+setattr(User, "has_book", has_book)
+
+
 class UserProfile(models.Model):
     """This hold user options that would fit within the User model"""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-    def has_book(self, book):
-        if book == None:
-            return False
-        try:
-            user_own = UserOwnBook.objects.get(
-                user_id=self.id, book_id=book.id)
-        except ObjectDoesNotExist:
-            return False
-        return True
 
     def __str__(self):
         return self.username
@@ -127,11 +131,8 @@ class BookSection(models.Model):
 
 
 # Abstract class for owning chapters or entire books
+"""
 class UserOwnership(models.Model):
-    """Abstract base class for lookup tables on user owning chapters or books
-
-    Thus inheritance looks like: models.Model -> UserOwnership -> UserOwnChapter or UserOwnBook
-    """
     user_id = models.OneToOneField(
         User, on_delete=models.DO_NOTHING)
 
@@ -152,9 +153,11 @@ class UserOwnChapter(UserOwnership):
                 'user_id', 'chapter_id'
             ], name='constraint_chapter_owner')
         ]
+"""
 
 
-class UserOwnBook(UserOwnership):
+class UserOwnBook(models.Model):
+    user_id = models.OneToOneField(User, on_delete=models.DO_NOTHING)
     book_id = models.OneToOneField(
         Book, on_delete=models.DO_NOTHING)
 

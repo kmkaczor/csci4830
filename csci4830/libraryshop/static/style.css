@@ -5,13 +5,14 @@
    border-right: brown ridge 3px;
    float: left;
    height: 100%;
+   padding-right: 10px;
 
 }
 
 /* Main body of page */
 #content {
-   width: 90%;
-   float: right;
+   width: 80%;
+   float: left;
    position: relative;
    padding-left: 20px;
 }
@@ -61,9 +62,21 @@ form > div > #id_submit_button {
 **/
 
 img.book_cover_main {
-   
    width: auto; 
    height: 500px;
    max-width: 300px;
    max-height: 500px;
+}
+/**
+*
+* Logo
+*
+**/
+#logo_title {
+	padding-bottom: 1vw;
+   text-align: center
+}
+
+#logoimg {
+  width: clamp(80px, 10vw, 150px);
 }

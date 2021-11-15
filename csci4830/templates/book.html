@@ -10,12 +10,13 @@
 
     Title: {{ book.title }} <br />
     Author: {{ book.author }} <br />
-    isbn: {{book.ISBN}}<br />
+    isbn: {{book.ISBN|default:"N/A" }}<br />
 
     {% if user.is_authenticated and not user_owns_book %}
         <div class="purchase_section">
-        <div section="purchase">Purchase Book: {{ book.price }}</div>
+        <div class="purchase">Purchase Book: {{ book.price|default_if_none:"Unavailable"|default:"Free!" }}</div>
         </div>
+        <div class="book_description"> {{ book.description }} </div>
     {% elif True %}
         <div>
         </div>

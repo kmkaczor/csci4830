@@ -1,4 +1,6 @@
+from libraryshop.models import UserOwnBook
 import datetime
+from django.contrib import auth
 from django.contrib.auth import logout
 from django.contrib.auth import logout
 from django.db.models.base import Model
@@ -7,7 +9,7 @@ from django.shortcuts import render
 from django.views.generic.edit import FormView
 from libraryshop.inc.db_functions import user_own_book
 # from libraryshop.inc.db_functions import user_own_book
-from libraryshop.models import Book
+from libraryshop.models import Book, has_book
 from django.core.exceptions import ObjectDoesNotExist
 # from csci4830.libraryshop.models import BookSection
 
@@ -55,6 +57,15 @@ def index(request):
     return render(request, "skeleton.html", context)
 
 
+def mybooks(request):
+    mybooks = UserOwnBook.objects.filter(user_id=request.user.id)
+    print(mybooks)
+    context = {
+
+    }
+    return render(request, "book.html", context)
+
+
 def book(request, book_id: int):
 
     errors = ''
@@ -69,7 +80,7 @@ def book(request, book_id: int):
     context = {
         'book': book,
         'errors': errors,
-        'user_owns_book': request.user.has_book(book)
+        'user_owns_book': has_book(request.user, book)
     }
 
     return render(request, "book.html", context)

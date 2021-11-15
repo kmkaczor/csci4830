@@ -12,6 +12,9 @@
     {% endif %}
     
     <div class="results_book_container">
+    {% if not results %}
+        There are no books registered in the database.
+    {% endif %}
     {% for book in results %}
         {% include 'snippets/book_result.html' %}
     {% endfor %}

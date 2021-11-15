@@ -30,14 +30,14 @@ urlpatterns = [  # The name field is referenced in templates: see templates/navb
     # To access in browser /book
     path('book/<int:book_id>/', views.book, name="book"),
     path('results', views.results, name="results"),  # /results
+    path('browse', views.results, name="browse"),  # /search with all results
     path('search', views.SearchFormView.as_view(), name="search"),  # /search
     path('create_collection', login_required(views.CreateCollectionFormView.as_view()),
-         name="create_collection"),  # /search
-    path('browse', views.browse, name="browse"),  # /search
+         name="create_collection"),
     path('admin', admin.site.urls, name="admin"),  # To access in browser /book
     path('login', views.login, name="login"),  # To access in browser /book
-    path('settings', views.login, name='settings'),
+    path('mybooks', views.mybooks, name='mybooks'),
     path('accounts/', include('django.contrib.auth.urls'))
 
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)  # Allow static files for developemnt mode
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Allow static files for developemnt mode
 #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
