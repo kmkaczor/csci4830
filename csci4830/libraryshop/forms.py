@@ -1,3 +1,4 @@
+from libraryshop.models import Author
 from django import forms
 from django.core.exceptions import ValidationError
 from django.db.models.fields.related import ForeignKey
@@ -20,7 +21,8 @@ class CreateCollectionForm(forms.Form):
 
 class SearchBookForm(forms.ModelForm):
     title = forms.CharField(required=False)
-    author = forms.CharField(required=False)
+    author = forms.ModelMultipleChoiceField(
+        queryset=Author.objects.all(), required=False)
     search_date_before = forms.DateField(widget=DateInput(), required=False)
     search_date_after = forms.DateField(widget=DateInput(), required=False)
     success_url = 'result'
@@ -48,7 +50,6 @@ class SearchBookForm(forms.ModelForm):
         before_date = self.cleaned_data.get('search_date_before')
 
         if self.cleaned_data.get('title') == 'hello':
-            print("workk")
             self.title = 'the'
 
         print("testing")
