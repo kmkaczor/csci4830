@@ -16,13 +16,16 @@ def user_own_book(user, book):
     if book == None or user == None:
         return False
 
+    user_own = UserOwnBook.objects.none
+
     try:
         user_own = UserOwnBook.objects.get(user_id=user.id, book_id=book.id)
     except ObjectDoesNotExist:
         return False
 
-        if user_own:
-            return True
+    if user_own:
+        print("he")
+        return True
 
     return False
 
@@ -208,14 +211,18 @@ class UserOwnChapter(UserOwnership):
 
 
 class UserOwnBook(models.Model):
-    user_id = models.OneToOneField(
+    user_id = models.ForeignKey(
         User, on_delete=models.DO_NOTHING, unique=False)
-    book_id = models.OneToOneField(
+    book_id = models.ForeignKey(
         Book, on_delete=models.DO_NOTHING, unique=False)
 
+    # The below line doesn't appear to work correctly on MySQL.
     class Meta:
-        constraints = [
-            UniqueConstraint(fields=[
-                'user_id', 'book_id'
-            ], name='constraint_book_owner')
-        ]
+        unique_together = [['user_id', 'book_id']]
+
+    # constraints = [
+
+    #    UniqueConstraint(fields=[
+    #        'user_id', 'book_id'
+    #    ], name='constraint_book_owner')
+    # ]
