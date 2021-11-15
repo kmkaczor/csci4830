@@ -3,7 +3,11 @@
 {% block title %} {{ book.title }} {% endblock %}
 
 {% block content %}
-
+<style>
+    #content {
+        bottom: 40px;
+    }
+</style>
 {% if book %}
     {% load static %}
     <img class="book_cover_main" id="book_cover" src="{% get_media_prefix %}{{book.cover_image}}" />
