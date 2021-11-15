@@ -108,7 +108,7 @@ input, select {
 
 /* Set a style for all buttons */
 button {
-  background-color: rgb(180, 139, 85);
+  background-color: rgb(224, 179, 119);
   color: rgb(0, 0, 0);
   padding: 14px 20px;
   margin: 8px 0;
@@ -119,7 +119,7 @@ button {
 
 /* Add a hover effect for buttons */
 button:hover {
-  background-color: #cfb066;
+  background-color: rgb(195, 156, 105);
 }
 /* Login sign up, search form END */
 
