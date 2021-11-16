@@ -11,7 +11,7 @@ from libraryshop.models import Book
 # https://stackoverflow.com/a/35968816
 class DateInput(forms.DateInput):
     input_type = 'date'
-
+    something = None
 
 class CreateCollectionForm(forms.Form):
     name = forms.CharField(required=True)
@@ -43,9 +43,7 @@ class SearchBookForm(forms.ModelForm):
     pass
 
     def clean(self):
-        print('hallddo;')
         super(SearchBookForm, self)
-        print('asdfasf;')
 
         before_date = self.cleaned_data.get('search_date_before')
 
