@@ -6,7 +6,7 @@ Turns out python's own package manager has an updated version of django. This ma
 
 Say yes to any questions it asks.
 
-    $ sudo pip3 install Django pymysql pillow
+    $ sudo pip3 install Django pymysql pillow mysqlconnector
     $ sudo apt install libapache2-mod-wsgi-py3
 
 
@@ -25,7 +25,7 @@ do so under /var/www/
     sudo chown www-data:www-data /var/www/.csci4830-secretkey
     sudo chmod 0400 /var/www/.csci4830-secretkey
 
-Apache needs to be configured to recognize both django and python as executable files.
+Apache needs to be configured to recognize both django and python as executable files. Additionally, we need to allow apache to allow users access to /static/ and /files/. 
 In /etc/apache2/sites-enabled/000-default.conf, using either vim or nano, please add the following lines ABOVE
 the <VirtualHost *:80> directive:
 
@@ -33,15 +33,26 @@ the <VirtualHost *:80> directive:
     #WSGIPythonHome /path/to/
     WSGIPythonPath /var/www/csci4830/csci4830
 
+    Alias /files/ /var/www/csci4830/csci4830/files/
+    Alias /static/ /var/www/csci4830/csci4830/static/
+
+    <Directory /var/www/csci4830/csci4830/static>
+        Options Indexes FollowSymLinks
+        Require all granted
+        AllowOverride None
+    </Directory>
+
+    <Directory /var/www/csci4830/csci4830/files>
+        Options Indexes FollowSymLinks
+        Require all granted
+        AllowOverride None
+    </Directory>
+
     <Directory /var/www/csci4830/csci4830>
         <Files wsgi.py>
         Require all granted
         </Files>
     </Directory>
-    
-    <Files /var/www/.csci4830-secretkey>
-        Deny from all
-    </Files>
 
 Apache needs to be restarted in order for it to reread its configuration files
 
@@ -66,7 +77,7 @@ Install python for windows: go into powershell or windows command line and type 
 
 Once it is installed:
 
-    pip3 install Django pymysql pillow
+    py -m pip install Django pymysql pillow mysqlconnector
 
 Now, we need to clone the git repository to your hard drive: $DIRECTORY here means whatever directory you plan to install to your hard drive:
 
@@ -79,6 +90,7 @@ Create a text file with the contents "THISISTHEKEY" in whatever is the home fold
 
 If you run "python3 manage.py runserver" (in the csci4830/csci4830/ directory) it will complain about a non-existent key (or something). Use the directory it tells you.
 
+Also ensure you have your github auth token or login information set accordingly.
 
 
 
