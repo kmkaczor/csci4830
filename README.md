@@ -86,13 +86,16 @@ Now, we need to clone the git repository to your hard drive: $DIRECTORY here mea
     cd csci4830
     git checkout devel
     
-Create a text file with the contents "THISISTHEKEY" in whatever is the home folder for your user.
+Create a text file with the contents "THISISTHEKEY" in whatever is the home folder for your user and name it .csci4830-secretkey
 
-If you run "python3 manage.py runserver" (in the csci4830/csci4830/ directory) it will complain about a non-existent key (or something). Use the directory it tells you.
+If you run "python3 manage.py runserver" (in the csci4830/csci4830/ directory) it will complain about a non-existent key (or something). Use the directory it tells you. 
 
-Also ensure you have your github auth token or login information set accordingly.
+Also ensure you have your github auth token or login information set accordingly. In windows powershell (NOT as admin!)
 
+    git config --global user.email "EMAIL"
+    git config --global user.name "NAME"
 
+... with appropriate changes. Now when you attempt to push to the repository with visual studio code it will prompt for a login in your browser, which will allow you to push and pull without having to ever worry about git ever again.
 
 ==========================
 ====Optional====

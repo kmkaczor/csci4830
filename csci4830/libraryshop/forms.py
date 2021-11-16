@@ -12,7 +12,7 @@ from libraryshop.models import Book
 # https://stackoverflow.com/a/35968816
 class DateInput(forms.DateInput):
     input_type = 'date'
-
+    something = None
 
 class CreateCollectionForm(forms.Form):
     name = forms.CharField(required=True)
