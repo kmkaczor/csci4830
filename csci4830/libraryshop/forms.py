@@ -8,6 +8,7 @@ from django.db.models.fields import DateField
 from libraryshop.models import Book
 
 
+# Use calendar for search forms
 # https://stackoverflow.com/a/35968816
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -43,24 +44,18 @@ class SearchBookForm(forms.ModelForm):
     pass
 
     def clean(self):
-        print('hallddo;')
         super(SearchBookForm, self)
-        print('asdfasf;')
 
         before_date = self.cleaned_data.get('search_date_before')
 
         if self.cleaned_data.get('title') == 'hello':
             self.title = 'the'
 
-        print("testing")
         if (before_date != None):
             before_year = before_date.year
             before_month = before_date.month
             before_day = before_date.day
             print(before_day)
-            # if before_day > 31
-
-            #raise ValidationError
 
         return self.cleaned_data
 
