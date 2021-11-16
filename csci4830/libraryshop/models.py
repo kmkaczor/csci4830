@@ -12,6 +12,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.query_utils import InvalidQuery
 
 
+
 def user_own_book(user, book):
     if book == None or user == None:
         return False
@@ -24,7 +25,6 @@ def user_own_book(user, book):
         return False
 
     if user_own:
-        print("he")
         return True
 
     return False
