@@ -26,8 +26,8 @@ from pathlib import Path
 AWS_DEVEL_DB = '3.135.240.54'
 # This will use a secret key file in the apache user's home -- in ubuntu this is /var/www
 sk_file = str(Path.home()) + "/.csci4830-secretkey"
-SECRET_KEY = ""
-
+SECRET_KEY = "THISISTHETEXT"
+"""
 try:
     print("Using secret key file: " + sk_file)
     SECRET_KEY = open(sk_file, 'r').read()
@@ -48,7 +48,7 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1",  # Allow development environment
                  # <!> Add your server here. You should probably put down both the IP address and the domain name
                  # <!> so that you can access from both methods (apache will notice the difference)
                  ]
-
+"""
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # This is the folder that manage.py is in. Thus MEDIA_ROOT and etc are in that folder
