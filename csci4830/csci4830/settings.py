@@ -107,6 +107,11 @@ WSGI_APPLICATION = 'csci4830.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
+"""
+Replace the DATABASE lines before release -- python's windows mysql implementation legs behind Linux
+But this works just as well for development purpose (although no central mysql server for now)
+"""
+
 # DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.mysql',
