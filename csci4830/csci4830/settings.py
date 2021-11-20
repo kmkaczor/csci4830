@@ -107,23 +107,28 @@ WSGI_APPLICATION = 'csci4830.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'CSCI4830project',
-        'USER': 'CSCI4830',
-        'PASSWORD': 'CSCI4830Django',
-        'HOST': AWS_DEVEL_DB,  # "127.0.0.1",
-        'PORT': '3306',
-    },
-}
+"""
+Replace the DATABASE lines before release -- python's windows mysql implementation legs behind Linux
+But this works just as well for development purpose (although no central mysql server for now)
+"""
 
 # DATABASES = {
 #    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'CSCI4830project',
+#        'USER': 'CSCI4830',
+#        'PASSWORD': 'CSCI4830Django',
+#        'HOST': AWS_DEVEL_DB,  # "127.0.0.1",
+#        'PORT': '3306',
+#    },
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 
 # Password validation
