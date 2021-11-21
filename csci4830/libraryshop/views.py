@@ -164,7 +164,7 @@ def results(request):
                 sb_year = int(sb[0])
                 sb_month = int(sb[1])
                 sb_day = int(sb[2])
-            finally:  # Error parsing values, throw 'em all out.
+            except:  # Error parsing values, throw 'em all out.
                 sb_year = None
                 sb_month = None
                 sb_day = None
