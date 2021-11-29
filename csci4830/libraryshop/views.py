@@ -4,7 +4,7 @@ from django.db.models.query_utils import InvalidQuery
 from libraryshop.models import UserOwnBook
 import datetime
 from django.contrib import auth
-from django.contrib.auth import logout
+from django.contrib.auth import logout, models
 from django.contrib.auth import logout
 from django.db.models.base import Model
 from django.db.models.query import QuerySet
@@ -58,6 +58,7 @@ def index(request):
         'pagetitle': "Index File",
     }
 
+
     return render(request, "skeleton.html", context)
 
 
@@ -72,6 +73,8 @@ def purchase(request, book_id):
     if not request.POST:
         # I don't have time to code better validation!
         errors += ['You should not be here.']
+    
+    xx : models.User.p
 
     if book or not errors:
         try:

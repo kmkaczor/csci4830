@@ -94,7 +94,6 @@ class Author(models.Model):
     def __str__(self):
         return (self.firstname or '') + ' ' + (self.lastname or '')
 
-
 class Book(models.Model):
     def cover_image_path(book, filename):
         extension = str(filename).split(sep='.')[-1]
