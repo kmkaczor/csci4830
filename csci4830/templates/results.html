@@ -3,11 +3,6 @@
 {% block title %}Search Results{% endblock %}
 
 {% block content %}
-<style>
-    #content {
-        bottom: 40px;
-    }
-</style>
     {% if form.errors %}
     <div class="form_errors_container">
         {% for e in form.errors.values %}
@@ -16,28 +11,22 @@
     </div>
     {% endif %}
 
-    <!-- Main_body TOP -->
     <div id="main_body">
         <h1>Search Results</h1>
-        <!-- main_txt  TOP-->
         <div id="main_txt">
-
             <hr />
-
-    <div class="results_book_container">
-    {% if not results %}
-        There are no books registered in the database.
-    {% endif %}
-    {% for book in results %}
-        <div id="content">
-            <div id="result">
-                <div class="detail">
-                    <table class="result_table">
-        {% include 'snippets/book_result.html' %}
-        </table></div></div></div>
-    {% endfor %}
+            <div class="br_container">
+                {% if not results %}
+                    There are no books registered in the database.
+                {% endif %}
+                {% for book in results %}
+                <div class="br_content">
+                    <div id="br_result">
+                        {% include 'snippets/book_result.html' %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-    </div>
-
-
 {% endblock %}

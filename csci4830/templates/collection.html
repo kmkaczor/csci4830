@@ -1,0 +1,27 @@
+{% extends 'skeleton.html' %}
+
+{% block title %} Collection {% endblock %}
+
+{% block content %}
+    {% if errors %}
+        <ul>
+        {% for error in errors %}
+            <li>{{error|safe}}</li>
+        {% endfor %}
+        </ul>
+    {% elif user.is_authenticated and collections %}
+            <ul>
+            {% for collection in collections %}
+            <li>
+                <a href="{% url 'collection' collection.id %}">
+                    {{collection.name}}
+                </a>
+            </li>
+            {% endfor %}
+            </ul>
+
+    {% elif not user.is_authenticated %}
+            You have no collections.
+    {% endif %}
+
+{% endblock % 

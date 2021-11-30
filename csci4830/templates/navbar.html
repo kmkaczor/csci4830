@@ -4,6 +4,7 @@
     <li><a href="{% url 'search' %}">Search Books</li>
     {% if user.is_authenticated %}
         <li><a href="{% url 'mybooks' %}">My Books</li>
+        <li><a href="{% url 'mycollections' %}">My Collections</li>
         <li><a href="{% url 'logout' %}">Logout [{{ user.username }}]</a></li>
         {% if user.is_superuser %}
             <li><a href="{% url 'admin:index' %}">Administration page</a></li>

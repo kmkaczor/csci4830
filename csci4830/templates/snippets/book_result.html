@@ -14,42 +14,52 @@
     </div> 
 </div>
 -->
-               <tr><td rowspan="6">
+                <div class="br_image">
                     {% load static %}
                     <a href="{% url 'book' book.id %}">
-                    <img src="{% get_media_prefix %}{{ book.cover_image }}" alt="book_cover" class="book_cover">
+                    {% if book.cover_image %}
+                        <img src="{% get_media_prefix %}{{ book.cover_image }}" alt="book_cover" class="book_cover">
+                    {% else %}
+                        <img src="{% static 'nocover.png' %}" alt="book_cover" class="book_cover">
+                    {% endif %}
                     </a>
-                    </td></tr>
-
+                </div>
+                <div class="br_info">
+                        <table class="result_table">
                             <tr>
                                 <th>Title</th>
-                                <td class="row_title"><a href="{% url 'book' book.id %}">
+                                <td class="br_cell row_title"><a href="{% url 'book' book.id %}">
                                 {{ book.title }}</a></td>
                             </tr>
                             <tr>
                                 <th>Author</th>
-                                <td class="row_author">by {{ book.author }}</td>
+                                <td class="br_cell row_author">by {{ book.author }}</td>
                             </tr>
                             <tr>
                                 <th>Publication Date</th>
-                                <td class="row_date">{{ book.publication_date }} </td>
+                                <td class="br_cell row_date">{{ book.publication_date }} </td>
                             </tr>
                             <tr>
 
                                 <th>Price $</th> 
-                                {% for owned_book in owned_books %}
-                                    {% if owned_book == book %}
-                                        <td class="row_price">Book already purchased!</td>
-                                  {% endif %}
-                                {% endfor %}
-   
-                                    <td class="row_price"><a href="{% url 'buybook' book.id %}"> {{book.price|default_if_none:'Free'}}</a></td>
+                                {% if book in owned_books %}
+                                    <td class="br_cell row_price">Book already purchased!</td>
+                                {% else %}
+                                    {% if book.price == None %}
+                                        <td class="br_cell row_prices=">Unavailable</td>
+                                    {% else %}
+                                        <td class="br_cell row_price"><a href="{% url 'buybook' book.id %}"> {{book.price|default:'Free!' }}</a></td>
+                                    {% endif %}
+                                {% endif %}
                             </tr>
 
                             <tr>
                                 <th>Description</th>
-                                <td class="row_description">{{ book.description }}</td>
+                                <td class="br_cell row_description">{{ book.description }}</td>
                             </tr>
+                        </table>
+                </div>
+                    
 
                 
                                         

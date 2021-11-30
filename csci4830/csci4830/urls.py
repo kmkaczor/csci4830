@@ -39,6 +39,7 @@ urlpatterns = [  # The name field is referenced in templates: see templates/navb
     path('admin', admin.site.urls, name="admin"),  # To access in browser /book
     path('login', views.login, name="login"),  # To access in browser /book
     path('mybooks', views.mybooks, name='mybooks'),
+    path('mycollections', views.mycollections, name='mycollections'),
     path('accounts/', include('django.contrib.auth.urls'))
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Allow static files for developemnt mode

@@ -15,6 +15,7 @@
   position: relative;
   padding-left: 20px;
   height: 100%;
+  margin-bottom:40px;
 }
 
 body {
@@ -34,11 +35,21 @@ form > div > label {
   min-width: 50px;
 }
 
+
 /*
 
 Footer
 
 */
+#footer {
+        position: fixed;
+        padding: 10px 10px 0px 10px;
+        bottom: 0;
+        width: 100%;
+        /* Height of the footer*/ 
+        height: 40px;
+        background: grey;
+}
 
 #footer_hr {
   text-align: center;
@@ -79,12 +90,24 @@ form > div > #id_submit_button {
 *
 **/
 
-img.book_cover_main {
-  width: auto;
-  height: 500px;
-  max-width: 300px;
-  max-height: 500px;
+img.bk_cover_main {
+  height: 150px;
 }
+
+.bk_purchase {
+  color: red;
+}
+
+.chapterbuy {
+  font-size: 0.55em;
+}
+/**
+*
+* Main Book Page
+*
+**/
+
+
 /**
 *
 * Logo
@@ -104,6 +127,35 @@ img.book_cover_main {
 * Tak's result html
 *
 **/
+  
+  
+
+.br_image {
+  position: relative;
+  float: left; 
+  width: 30%;
+}
+
+.br_info {
+  float: left;
+  width: 70%;
+}
+
+.br_cell {
+  padding-left: 15px;
+}
+
+.br_result:after {
+  display: block;
+  width: 70%;
+  clear: both;
+}
+
+.br_content {
+  margin-bottom:25px;
+}
+
+
 
 /* Main content TOP */
 #main_body {
@@ -115,6 +167,7 @@ img.book_cover_main {
   margin: 10px;
   margin-top: clamp(10px, 3%, 30px);
   border-radius: 15px;
+  padding-bottom: 15px;
 }
 
 #main_txt {
@@ -142,9 +195,8 @@ img.book_cover_main {
 }
 
 /* book search result TOP */
-#result img {
+img.book_cover {
   margin-right: 15px;
-  width: clamp(80px, 10vw, 150px);
   width: 150px;
   height: auto;
 }
@@ -152,6 +204,7 @@ img.book_cover_main {
 #result table {
   margin-left: 30px;
   width: 80%;
+  content: inherit;
 }
 
 div.detail {
@@ -168,17 +221,10 @@ td.row_author {
   text-align: center;
 }
 
-#cheeseburger {
-  color: yellow;
+.br_content {
+  margin-bottom: 20px;
+  float: left;
+  width: 80%;
 }
-
-#bigmac {
-   color: red;
-}
-
-#quaterPounder {
-  color: orange;
-}
-
 
 /* book search result END */

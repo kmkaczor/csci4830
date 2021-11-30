@@ -1,3 +1,5 @@
+from django.forms.widgets import ClearableFileInput
+from libraryshop.models import BookSection
 from libraryshop.models import Author
 from django import forms
 from django.core.exceptions import ValidationError
@@ -12,6 +14,7 @@ from libraryshop.models import Book
 # https://stackoverflow.com/a/35968816
 class DateInput(forms.DateInput):
     input_type = 'date'
+
 
 class CreateCollectionForm(forms.Form):
     name = forms.CharField(required=True)
@@ -65,3 +68,8 @@ class LoginForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'password']
+
+
+class CollectionForm(forms.ModelForm):
+    chapters = forms.FileField(
+        widget=ClearableFileInput(attrs={'multiple': True}))

@@ -10,7 +10,7 @@ from django.db.models.fields.files import FieldFile, FileField, ImageField, Imag
 from django.db.models.fields.related import ForeignKey
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.query_utils import InvalidQuery
-
+from django.forms.widgets import ClearableFileInput
 
 
 def user_own_book(user, book):
@@ -94,6 +94,7 @@ class Author(models.Model):
     def __str__(self):
         return (self.firstname or '') + ' ' + (self.lastname or '')
 
+
 class Book(models.Model):
     def cover_image_path(book, filename):
         extension = str(filename).split(sep='.')[-1]
@@ -108,7 +109,8 @@ class Book(models.Model):
     date_edit_db = DateField(auto_created=True, auto_now=True)
     description = TextField(null=True, blank=True)
     isbn = CharField(max_length=14, name="ISBN", null=True, blank=True)
-    price = FloatField(null=True, blank=True)
+    price = models.DecimalField(
+        max_digits=6, decimal_places=2, null=True, blank=True)
     cover_image = ImageField(upload_to=cover_image_path,
                              max_length=250, blank=True, null=True)
 

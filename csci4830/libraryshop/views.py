@@ -1,7 +1,8 @@
+from libraryshop.models import BookSection
 from django.contrib.admin.sites import AlreadyRegistered
 from django.contrib.auth.decorators import login_required
 from django.db.models.query_utils import InvalidQuery
-from libraryshop.models import UserOwnBook
+from libraryshop.models import Collection, UserOwnBook
 import datetime
 from django.contrib import auth
 from django.contrib.auth import logout, models
@@ -58,8 +59,24 @@ def index(request):
         'pagetitle': "Index File",
     }
 
-
     return render(request, "skeleton.html", context)
+
+
+@login_required
+def mycollections(request):
+    errors = []
+    try:
+        collections = Collection.objects.filter(User=request.user)
+    except:
+        collections = None
+
+    context = {
+        'errors': errors,
+        'collections': collections
+
+    }
+    return render(request, 'mycollections.html', context)
+    pass
 
 
 @login_required
@@ -73,8 +90,6 @@ def purchase(request, book_id):
     if not request.POST:
         # I don't have time to code better validation!
         errors += ['You should not be here.']
-    
-    xx : models.User.p
 
     if book or not errors:
         try:
@@ -124,7 +139,6 @@ def mybooks(request):
     books = []
     for ownership in myown:
         books += [ownership.book_id]
-    print(books)
 
     context = {
         'results': books
@@ -143,10 +157,13 @@ def book(request, book_id: int):
         errors += '<p>Book does not exist.</p>'
         pass
 
+    chapters = BookSection.objects.filter(book_id=book_id)
+    print(chapters)
     context = {
         'book': book,
         'errors': errors,
-        'user_owns_book': user_own_book(request.user, book)
+        'user_owns_book': user_own_book(request.user, book),
+        'chapters': chapters
     }
 
     return render(request, "book.html", context)
