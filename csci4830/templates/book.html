@@ -3,43 +3,38 @@
 {% block title %} {{ book.title }} {% endblock %}
 
 {% block content %}
-<style>
-    #content {
-        bottom: 40px;
-    }
-</style>
 {% if book %}
+    <div class="bk_content">
     {% load static %}
     {% if book.cover_image %}
         <img class="bk_cover_main" id="book_cover" src="{% get_media_prefix %}{{book.cover_image}}" />
+    {% else %}
+        <img class="bk_cover_main" id="book_cover" src="{% static 'nocover.png' %}" />
     {% endif %}
+    
+    <div class="bk_data">
 
-    Title: {{ book.title }} <br />
-    Author: {{ book.author }} <br />
-    isbn: {{book.ISBN|default:"N/A" }}<br />
+    <div class="bk_title">{{ book.title }} </div>
+    <div class="bk_author">by {{ book.author }}</div>
+    <div class="bk_isbn">{{book.ISBN|default:"N/A" }}</div>
 
     {% if user.is_authenticated and not user_owns_book %}
         <div class="bk_purchase_section">
         <div class="bk_purchase">Purchase Book: {{ book.price|default_if_none:"Unavailable"|default:"Free!" }}</div>
         </div>
-        {% if chapters %}
-        <div class="bk_purchase_chapt">Purchase Chapter:
-            <form action="{% url 'purchase' %}" method="get">
-                <select>
-                {% for chapter in chapters %}
-                    <option value="{{chapter.chapter_num}}" id="pchapt">{{chapter.chapter_num}}. {{ chapter.chapter_title }}</option>
-                {% endfor %}
-                </select>
-                <input class="chapterbuy" type="submit" value="Purchase" />
-            </form>
-        </div>
-        {% endif %}
+
+            {% include 'snippets/chapterbuy.html' %}
+
         <div class="bk_description"> {{ book.description }} </div>
-    {% elif True %}
-        <div>
+        
+    {% elif user.is_authenticated and user_owns_book %}
+        <div class="bk_download"> 
+            <a href="{% url 'downloads' book.id %}">[[DOWNLOAD]]</a>
         </div>
     {% endif %}
 
+    </div>
+</div>
 {% elif errors %}
     {{ errors|safe }}
 {% else  %}

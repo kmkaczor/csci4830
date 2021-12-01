@@ -18,6 +18,10 @@
   margin-bottom:40px;
 }
 
+#header {
+  margin-bottom: 45px;
+}
+
 body {
   background: lightyellow;
 }
@@ -35,6 +39,9 @@ form > div > label {
   min-width: 50px;
 }
 
+hr.nav {
+  width: 50%;
+}
 
 /*
 
@@ -89,17 +96,55 @@ form > div > #id_submit_button {
 * Book, Results
 *
 **/
+  
 
-img.bk_cover_main {
-  height: 150px;
+.bk_content {
+  position: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15%;
 }
 
-.bk_purchase {
-  color: red;
+img.bk_cover_main {
+  display: block;
+  float: left;
+  clear: left;
+  height: 450px;
+}
+
+.bk_data {
+  text-align: center;
+}
+
+.bk_title {
+  font-size: 44px;
+  font-weight: bolder;
+}
+
+.bk_author {
+  margin-bottom: 10px;
+}
+
+.bk_isbn {
+  font-size: 8px;
+  margin-bottom: 30px;
 }
 
 .chapterbuy {
   font-size: 0.55em;
+}
+
+.bk_purchase {
+  margin-bottom: 30px;
+}
+.bk_description {
+  margin-bottom: 30px;
+}
+
+.bk_download {
+  font-weight: bold;
+  color: maroon;
+  font-size: 24px;
 }
 /**
 *
@@ -133,12 +178,14 @@ img.bk_cover_main {
 .br_image {
   position: relative;
   float: left; 
-  width: 30%;
+  margin-left: 33%;
+  clear: both;
 }
 
 .br_info {
+  margin-left: 80px;
+  position: relative;
   float: left;
-  width: 70%;
 }
 
 .br_cell {

@@ -1,3 +1,7 @@
+import tempfile
+
+from django.http.response import Http404, HttpResponse, HttpResponseNotFound
+from libraryshop.inc.db_functions import book_as_zip, user_owns_book, user_purchase_book
 from libraryshop.models import BookSection
 from django.contrib.admin.sites import AlreadyRegistered
 from django.contrib.auth.decorators import login_required
@@ -17,7 +21,6 @@ from django.views.generic.edit import FormView
 from libraryshop.models import Book
 from django.core.exceptions import ObjectDoesNotExist
 # from csci4830.libraryshop.models import BookSection
-from libraryshop.models import user_purchase_book, user_own_book
 
 ##############################
 ######## Class Views #########
@@ -33,14 +36,13 @@ class SearchFormView(FormView):
 
 class CreateCollectionFormView(FormView):
     from libraryshop.forms import CreateCollectionForm
-    template_name = 'snippets/form_page.html'
+    template_name = 'addcollection.html'
     form_class = CreateCollectionForm
 
 
 ##############################
 ####### Function Views #######
 ##############################
-
 
 def index(request):
     """This is the function that is executed when the root (/) url is called.
@@ -73,10 +75,8 @@ def mycollections(request):
     context = {
         'errors': errors,
         'collections': collections
-
     }
     return render(request, 'mycollections.html', context)
-    pass
 
 
 @login_required
@@ -120,7 +120,7 @@ def buybook(request, book_id):
         errors += ['Book does not exist!']
 
     if (book != None):
-        user_own = user_own_book(request.user, book)
+        user_own = user_owns_book(request.user, book)
 
     context = {
         'errors': errors,
@@ -131,17 +131,15 @@ def buybook(request, book_id):
 
 
 def mybooks(request):
-    myown = UserOwnBook.objects.filter(user_id=request.user.id)
-
-    # for i in myown:
-    #mybooks = Book.objects.filter(id=i.id)
+    owned_books = UserOwnBook.objects.filter(user_id=request.user.id)
 
     books = []
-    for ownership in myown:
+    for ownership in owned_books:
         books += [ownership.book_id]
 
     context = {
-        'results': books
+        'results': books,
+        'owned_books': books
     }
     return render(request, "results.html", context)
 
@@ -162,11 +160,56 @@ def book(request, book_id: int):
     context = {
         'book': book,
         'errors': errors,
-        'user_owns_book': user_own_book(request.user, book),
+        'user_owns_book': user_owns_book(request.user, book),
         'chapters': chapters
     }
 
     return render(request, "book.html", context)
+
+
+def download(request, book_id: int, chapter_id: int):
+    import os.path
+
+    pass
+
+
+def download(request, book_id: int):
+    pass
+
+
+def download(request, book_id: int):
+    import os.path
+
+    try:
+        book = Book.objects.get(id=book_id)
+        if not user_owns_book(request.user, book):
+            return HttpResponseNotFound("You do not own this book. Out, out!")
+        chapters = BookSection.objects.filter(book_id=book)
+    except:
+        book = None
+        chapters = None
+
+    if book == None:
+        return HttpResponseNotFound("Book does not exist.")
+    if chapters == None:
+        return HttpResponseNotFound("Book does not contain chapters, please notify the administrator(s).")
+
+    zipfile = book_as_zip(book)
+
+    try:
+        if os.path.exists(zipfile.name):
+            with open(zipfile.name, 'rb') as file:
+                print('fi', file)
+                response = HttpResponse(
+                    file.read(), content_type="application/zip")
+                response['Content-Disposition'] = 'inline; filename=' + \
+                    os.path.basename(
+                        book.title + ' - ' + book.author.firstname + ' ' + book.author.lastname + '.zip')
+        return response
+    finally:
+        os.remove(zipfile.name)
+
+    return Http404
 
 
 def results(request):
@@ -209,7 +252,7 @@ def results(request):
 
     already_owned = {}
     for book in results:
-        if user_own_book(request.user, book):
+        if user_owns_book(request.user, book):
             already_owned[book] = True
 
     context = {

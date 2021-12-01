@@ -9,19 +9,12 @@
             <li>{{error|safe}}</li>
         {% endfor %}
         </ul>
-    {% elif user.is_authenticated and collections %}
-            <ul>
-            {% for collection in collections %}
-            <li>
-                <a href="{% url 'collection' collection.id %}">
-                    {{collection.name}}
-                </a>
-            </li>
-            {% endfor %}
-            </ul>
+    {% endif %}
 
-    {% elif not collections %}
-            You have no collections.
+    {% if user.is_authenticated %}
+    
+        {{form}}
+
     {% endif %}
 
 {% endblock %}

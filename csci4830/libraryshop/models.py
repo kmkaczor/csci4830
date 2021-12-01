@@ -1,7 +1,6 @@
 from enum import unique
-from django.contrib.admin.sites import AlreadyRegistered
 from django.db.models.constraints import UniqueConstraint
-from django.db.models.fields import CharField, DateField, EmailField, FloatField, IntegerField, PositiveIntegerField, TextField
+from django.db.models.fields import CharField, DateField, DecimalField, EmailField, FloatField, IntegerField, PositiveIntegerField, TextField
 from django.db import models
 from django.db.models.deletion import DO_NOTHING
 from abc import ABC
@@ -11,38 +10,6 @@ from django.db.models.fields.related import ForeignKey
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.query_utils import InvalidQuery
 from django.forms.widgets import ClearableFileInput
-
-
-def user_own_book(user, book):
-    if book == None or user == None:
-        return False
-
-    user_own = UserOwnBook.objects.none
-
-    try:
-        user_own = UserOwnBook.objects.get(user_id=user.id, book_id=book.id)
-    except ObjectDoesNotExist:
-        return False
-
-    if user_own:
-        return True
-
-    return False
-
-
-def user_purchase_book(user, book):
-    if user == None or book == None:
-        return InvalidQuery
-
-    if user_own_book(user, book):
-        raise AlreadyRegistered
-
-    new_purchase = UserOwnBook(user_id=user, book_id=book)
-    new_purchase.save()
-    if (new_purchase == None):
-        raise InvalidQuery
-
-    return new_purchase
 
 
 """
@@ -163,6 +130,7 @@ class BookSection(models.Model):
     chapter_title = CharField(max_length=1000, null=True)
     # Chapter numbers are unique
     chapter_num = PositiveIntegerField('Chapter number')
+    price = DecimalField(null=True, max_digits=6, decimal_places=2)
 
     def book_section_path(section, filename):
         extension = str(filename).split(sep='.')[-1]

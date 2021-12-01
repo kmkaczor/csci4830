@@ -1,0 +1,12 @@
+{% if chapters %}
+<div class="bk_purchase_chapt">Purchase Chapter:
+    <form action="{% url 'purchase' %}" method="get">
+        <select>
+        {% for chapter in chapters %}
+            <option value="{{chapter.chapter_num}}" id="pchapt">{{chapter.chapter_num}}. {{ chapter.chapter_title }}</option>
+        {% endfor %}
+        </select>
+        <input class="chapterbuy" type="submit" value="Purchase" />
+    </form>
+</div>
+{% endif %}
