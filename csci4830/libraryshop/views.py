@@ -1,8 +1,10 @@
 import tempfile
+from typing_extensions import ParamSpecArgs
 
 from django.http.response import Http404, HttpResponse, HttpResponseNotFound
+from libraryshop.forms import CreateCollectionForm
 from libraryshop.inc.db_functions import book_as_zip, user_owns_book, user_purchase_book
-from libraryshop.models import BookSection
+from libraryshop.models import BookCollectionMapping, BookSection
 from django.contrib.admin.sites import AlreadyRegistered
 from django.contrib.auth.decorators import login_required
 from django.db.models.query_utils import InvalidQuery
@@ -64,11 +66,15 @@ def index(request):
     return render(request, "skeleton.html", context)
 
 
+def collection(request):
+    pass
+
+
 @login_required
 def mycollections(request):
     errors = []
     try:
-        collections = Collection.objects.filter(User=request.user)
+        collections = Collection.objects.filter(user_id=request.user)
     except:
         collections = None
 
@@ -107,6 +113,30 @@ def purchase(request, book_id):
     }
 
     return render(request, "purchase.html", context)
+
+
+def submitcollection(request):
+    errors = []
+    name = request.POST.get('name')
+    books = request.POST.get('book_choices')
+    form = CreateCollectionForm(request.POST)
+    collection = Collection.objects.none
+    if form.is_valid():
+        ids = form.cleaned_data['book_choices']
+        collection = Collection(name=name, user_id=request.user)
+        print(collection)
+        try:
+            collection.save()
+        except:
+            errors.append('Unable to create collection!')
+
+        # for bookids in ids:
+            # BookCollectionMapping()
+    context = {
+        'errors': errors,
+
+    }
+    return render(request, 'submitcollection.html', context)
 
 
 def buybook(request, book_id):

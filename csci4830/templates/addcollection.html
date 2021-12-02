@@ -1,6 +1,6 @@
 {% extends 'skeleton.html' %}
 
-{% block title %} My Collections {% endblock %}
+{% block title %} Create Collection {% endblock %}
 
 {% block content %}
     {% if errors %}
@@ -13,7 +13,14 @@
 
     {% if user.is_authenticated %}
     
-        {{form}}
+        <div class="c_container">
+        <form action="{% url 'submitcollection' %}" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Create Collection">
+            
+        </form>
+    </div>
 
     {% endif %}
 

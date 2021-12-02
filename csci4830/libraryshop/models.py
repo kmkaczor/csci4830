@@ -119,6 +119,13 @@ class Collection(models.Model):
     name = CharField(max_length=80, null=False)
     user_id = ForeignKey(User, on_delete=models.DO_NOTHING, null=False)
 
+    class Meta:
+        constraints = [
+            UniqueConstraint(fields=[   # Applies a constraint to UserOwnership to ensure the combination of user_id and book_id is unique
+                'name', 'user_id'
+            ], name='constraint_collection_uniq_title_per_user')
+        ]
+
 
 class BookCollectionMapping(models.Model):
     book_id = ForeignKey(Book, on_delete=DO_NOTHING, null=False)

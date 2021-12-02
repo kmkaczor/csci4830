@@ -1,0 +1,23 @@
+{% extends 'skeleton.html' %}
+
+{% block title %} Add Collection {% endblock %}
+
+{% block content %}
+    {% if errors %}
+        <ul>
+        {% for error in errors %}
+            <li>{{error|safe}}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+    
+        You have successfully submitted your collection. 
+    
+    {% else %}
+        You must be logged in in order to submit a collection.
+
+    {% endif %}
+
+{% endblock %}

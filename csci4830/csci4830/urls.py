@@ -28,7 +28,7 @@ from django.contrib.auth.decorators import login_required
 urlpatterns = [  # The name field is referenced in templates: see templates/navbar.html use the "url" template command
     path('', views.index, name="index"),  # To access in browser: /
     # To access in browser /book
-    path('book/<int:book_id>/', views.book, name="book"),
+    path('book/<int:book_id>', views.book, name="book"),
     path('downloads/<int:book_id>', views.download, name="downloads"),
     path('results', views.results, name="results"),  # /results
     path('browse', views.results, name="browse"),  # /search with all results
@@ -37,10 +37,13 @@ urlpatterns = [  # The name field is referenced in templates: see templates/navb
     path('purchase/<int:book_id>', views.purchase, name="purchase"),  # /search
     path('addcollection', login_required(views.CreateCollectionFormView.as_view()),
          name="addcollection"),
+    path('submitcollection', views.submitcollection,
+         name="submitcollection"),  # To access in browser /book
     path('admin', admin.site.urls, name="admin"),  # To access in browser /book
     path('login', views.login, name="login"),  # To access in browser /book
     path('mybooks', views.mybooks, name='mybooks'),
     path('mycollections', views.mycollections, name='mycollections'),
+    path('collection/<int:collection_id>', views.collection, name='collection'),
     path('accounts/', include('django.contrib.auth.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Allow static files for developemnt mode
