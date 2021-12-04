@@ -1,6 +1,6 @@
 from enum import unique
 from django.db.models.constraints import UniqueConstraint
-from django.db.models.fields import CharField, DateField, DecimalField, EmailField, FloatField, IntegerField, PositiveIntegerField, TextField
+from django.db.models.fields import CharField, DateField, DateTimeField, DecimalField, EmailField, FloatField, IntegerField, PositiveIntegerField, TextField
 from django.db import models
 from django.db.models.deletion import DO_NOTHING
 from abc import ABC
@@ -72,8 +72,8 @@ class Book(models.Model):
         Author, on_delete=models.CASCADE, null=False)
     title = CharField(max_length=250, null=False)
     publication_date = DateField(null=True, blank=True)
-    date_added_db = DateField(auto_created=True, auto_now_add=True)
-    date_edit_db = DateField(auto_created=True, auto_now=True)
+    date_added_db = DateTimeField(auto_created=True, auto_now_add=True)
+    date_edit_db = DateTimeField(auto_created=True, auto_now=True)
     description = TextField(null=True, blank=True)
     isbn = CharField(max_length=14, name="ISBN", null=True, blank=True)
     price = models.DecimalField(
@@ -111,6 +111,9 @@ class Book(models.Model):
     )
     genre = models.CharField(max_length=6, choices=ENUM_GENRES, blank=True)
 
+    def chapters(self):
+        BookSection
+
     def __str__(self):
         return self.title + " by " + str(self.author)
 
@@ -118,6 +121,7 @@ class Book(models.Model):
 class Collection(models.Model):
     name = CharField(max_length=80, null=False)
     user_id = ForeignKey(User, on_delete=models.DO_NOTHING, null=False)
+    date_added_db = DateField(auto_created=True, auto_now_add=True)
 
     class Meta:
         constraints = [
@@ -160,30 +164,15 @@ class BookSection(models.Model):
 # user_id and book_id should not have duplicates together
 
 
-# Abstract class for owning chapters or entire books
-"""
-class UserOwnership(models.Model):
-    user_id = models.OneToOneField(
-        User, on_delete=models.DO_NOTHING)
+class UserOwnBookSection(models.Model):
+    user_id = models.ForeignKey(
+        User, on_delete=models.DO_NOTHING, unique=False)
+    book_section_id = models.ForeignKey(
+        BookSection, on_delete=models.DO_NOTHING, unique=False)
 
+    # The below line doesn't appear to work correctly on MySQL.
     class Meta:
-        abstract = True
-
-
-class UserOwnChapter(UserOwnership):
-    chapter_id = models.OneToOneField(
-        BookSection, on_delete=models.DO_NOTHING)
-
-    def __str__(self):
-        return BookSection(chapter_id=self.chapter_id) + " " + super(self)
-
-    class Meta:
-        constraints = [
-            UniqueConstraint(fields=[
-                'user_id', 'chapter_id'
-            ], name='constraint_chapter_owner')
-        ]
-"""
+        unique_together = [['user_id', 'book_section_id']]
 
 
 class UserOwnBook(models.Model):

@@ -1,27 +1,38 @@
 {% extends 'skeleton.html' %}
 
-{% block title %} Collection {% endblock %}
+{% block title %}Search Results{% endblock %}
 
 {% block content %}
-    {% if errors %}
-        <ul>
-        {% for error in errors %}
-            <li>{{error|safe}}</li>
+    {% if form.errors %}
+    <div class="form_errors_container">
+        {% for e in form.errors.values %}
+            <p class="error_item">{{e}}</p>
         {% endfor %}
-        </ul>
-    {% elif user.is_authenticated and collections %}
-            <ul>
-            {% for collection in collections %}
-            <li>
-                <a href="{% url 'collection' collection.id %}">
-                    {{collection.name}}
-                </a>
-            </li>
-            {% endfor %}
-            </ul>
-
-    {% elif not user.is_authenticated %}
-            You have no collections.
+    </div>
     {% endif %}
 
-{% endblock % 
+    <div id="main_body">
+        <h1 class="c_title">Books in {{collection.name}}</h1>
+        <div class="c_user">
+            {% if owner == request.user %}
+            {% endif %}
+
+        </div>
+
+        <div id="main_txt">
+            <hr />
+            <div class="br_container">
+                {% if not results %}
+                    There are no results to display.
+                {% endif %}
+                {% for book in results %}
+                <div class="br_content">
+                    <div id="br_result">
+                        {% include 'snippets/book_result.html' %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

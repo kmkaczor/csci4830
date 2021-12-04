@@ -1,0 +1,14 @@
+{% extends 'skeleton.html' %}
+
+{% block title %} Chapter Purchased {% endblock %}
+
+{% block content %}
+    {% if errors %}
+        <ul>
+        {% for error in errors %}
+            <li>{{error|safe}}</li>
+        {% endfor %}
+    {% elif user.is_authenticated %}
+        Congrats on your purchase! <a href="{% url 'download_chapter' chapter.id %}">Click here to download!</a>
+    {% endif %}
+{% endblock %}

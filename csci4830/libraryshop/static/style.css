@@ -44,6 +44,16 @@ hr.nav {
 }
 
 /*
+*
+* Index
+*
+**/
+
+div.index_desc {
+  width: 50%;
+  text-align: center;
+}
+/*
 
 Footer
 

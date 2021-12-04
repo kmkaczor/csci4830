@@ -14,7 +14,7 @@
             <li>{{error|safe}}</li>
         {% endfor %}
     {% elif user.is_authenticated %}
-        Congrats on your purchase! <a href="">Click here to download!</a>
+        Congrats on your purchase! <a href="{% url 'downloads' book.id %}">Click here to download!</a>
         Alternatively, your books page should have download links.
     {% endif %}
 {% endblock %}

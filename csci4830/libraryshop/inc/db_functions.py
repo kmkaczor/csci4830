@@ -1,5 +1,5 @@
 from django.db.models.query_utils import InvalidQuery
-from libraryshop.models import Book, BookSection, BookCollectionMapping, Collection, BookCollectionMapping, UserOwnBook
+from libraryshop.models import Book, BookSection, BookCollectionMapping, Collection, BookCollectionMapping, UserOwnBook, UserOwnBookSection
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from csci4830.settings import MEDIA_ROOT
@@ -49,6 +49,41 @@ def user_owns_book(user, book):
         return True
 
     return False
+
+
+def user_owns_chapter(user, chapter: BookSection):
+    if chapter == None or user == None:
+        return False
+
+    user_own = UserOwnBookSection.objects.none
+
+    # If they own the book, they own the chapter.
+    if user_owns_book(user, chapter.book_id):
+        return True
+    try:
+        user_own = UserOwnBookSection.objects.get(
+            user_id=user.id, book_section_id=chapter.id)
+    except ObjectDoesNotExist:
+        return False
+
+    if user_own:
+        return True
+
+    return False
+
+
+def user_purchase_chapt(user, chapter: BookSection):
+    if user == None or chapter == None:
+        return InvalidQuery
+    if user_owns_chapter(user, chapter):
+        raise AlreadyRegistered
+
+    new_purchase = UserOwnBookSection(user_id=user, book_section_id=chapter)
+    new_purchase.save()
+    if (new_purchase == None):
+        raise InvalidQuery
+
+    return new_purchase
 
 
 def user_purchase_book(user, book):

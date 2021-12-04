@@ -20,7 +20,14 @@
 
     {% if user.is_authenticated and not user_owns_book %}
         <div class="bk_purchase_section">
-        <div class="bk_purchase">Purchase Book: {{ book.price|default_if_none:"Unavailable"|default:"Free!" }}</div>
+        <div class="bk_purchase">Purchase Book:
+            {% if book.price != None %}
+                <a href="{% url 'purchase' book.id %}">
+            {%endif%}
+            {{ book.price|default_if_none:"Unavailable"|default:"Free!" }}</div>
+            {% if book.price != None %}
+                </a>
+            {%endif%}
         </div>
 
             {% include 'snippets/chapterbuy.html' %}

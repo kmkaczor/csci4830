@@ -30,11 +30,15 @@ urlpatterns = [  # The name field is referenced in templates: see templates/navb
     # To access in browser /book
     path('book/<int:book_id>', views.book, name="book"),
     path('downloads/<int:book_id>', views.download, name="downloads"),
+    path('download_chapter/<int:chapter_id>',
+         views.download_chapter, name="download_chapter"),
     path('results', views.results, name="results"),  # /results
     path('browse', views.results, name="browse"),  # /search with all results
     path('search', views.SearchFormView.as_view(), name="search"),  # /search
     path('buybook/<int:book_id>', views.buybook, name="buybook"),  # /search
     path('purchase/<int:book_id>', views.purchase, name="purchase"),  # /search
+    path('purchase_chapter',
+         views.purchase_chapter, name="purchase_chapter"),  # /search
     path('addcollection', login_required(views.CreateCollectionFormView.as_view()),
          name="addcollection"),
     path('submitcollection', views.submitcollection,

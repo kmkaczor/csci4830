@@ -1,0 +1,32 @@
+{% extends 'skeleton.html' %}
+
+{% block title %}Welcome to LibraryShop!{% endblock %}
+
+{% block content %}
+
+<h2>Newest Book:</h2>
+
+{% if newest_book %}
+<a href="{% url 'book' newest_book.id %}">{{newest_book}}</a>
+{% else %}
+{{newest_book|default_if_none:'No book in database.'}}
+{% endif%}
+
+<h2>Newest Collection:</h2>
+
+{% if newest_collection %}
+<a href="{% url 'collection' newest_collection.id %}">{{newest_collection.name}}</a>
+{% else %}
+{{newest_collection|default_if_none:'No collection in database.'}}
+{% endif%}
+
+<div class="index_desc">
+<h2>About:</h2>
+Welcome to LibraryShop, an e-book store that allows for free/rented book downloads
+as well as user-created collections. You may browse all books or search for specific titles,
+or log-in and purchase and rent books.
+<br><br>
+Please contact an administrator to create an account.
+</div>
+
+{% endblock %}
