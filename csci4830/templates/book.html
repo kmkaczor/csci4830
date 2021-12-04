@@ -32,9 +32,9 @@
 
             {% include 'snippets/chapterbuy.html' %}
 
+        {% elif user.is_authenticated and user_owns_book %}
         <div class="bk_description"> {{ book.description }} </div>
         
-    {% elif user.is_authenticated and user_owns_book %}
         <div class="bk_download"> 
             <a href="{% url 'downloads' book.id %}">[[DOWNLOAD]]</a>
         </div>

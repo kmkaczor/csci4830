@@ -268,7 +268,6 @@ def download(request, book_id: int):
 
 def download_chapter(request, chapter_id: int):
     import os.path
-    import magic
     from csci4830.settings import MEDIA_ROOT
 
     try:
