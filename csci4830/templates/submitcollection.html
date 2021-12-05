@@ -9,9 +9,8 @@
             <li>{{error|safe}}</li>
         {% endfor %}
         </ul>
-    {% endif %}
 
-    {% if user.is_authenticated %}
+    {% elif user.is_authenticated %}
     
         You have successfully submitted your collection. 
     

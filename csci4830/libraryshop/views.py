@@ -170,17 +170,18 @@ def purchase_chapter(request):
 
 def submitcollection(request):
     errors = []
-    name = request.POST.get('name')
-    books = request.POST.get('book_choices')
     form = CreateCollectionForm(request.POST)
     collection = Collection.objects.none
     if form.is_valid():
+        name = form.cleaned_data['name']
         ids = form.cleaned_data['book_choices']
+        books = form.cleaned_data['book_choices']
         collection = Collection(name=name, user_id=request.user)
         try:
             collection.save()
-        except:
-            errors.append('Unable to create collection!')
+        except Exception as e:
+            errors.append('Error: ' + str(e))
+            return render(request, 'submitcollection.html', {'errors': errors})
 
         for i in ids:
             collection_mapping = BookCollectionMapping(
@@ -189,8 +190,8 @@ def submitcollection(request):
                 collection_mapping.save()
             except Exception as e:
                 errors.append(
-                    'Unable to insert books into collection, error: ' + e)
-                collection.delete()
+                    'Unable to insert books into collection, error: ' + str(e.__class__()))
+                # collection.delete()
                 break
 
     context = {
