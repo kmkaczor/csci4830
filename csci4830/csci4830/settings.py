@@ -36,7 +36,7 @@ except Exception as err:
           + sk_file + ": " + err.strerror)
     exit(1)
 
-
+"""
 ALLOWED_HOSTS = ["localhost", "127.0.0.1",  # Allow development environment
                  # Korey's AWS instance -- also development database
                  AWS_DEVEL_DB, "ec2-3-16-112-104.us-east-2.compute.amazonaws.com",
@@ -48,7 +48,6 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1",  # Allow development environment
                  # <!> Add your server here. You should probably put down both the IP address and the domain name
                  # <!> so that you can access from both methods (apache will notice the difference)
                  ]
-"""
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # This is the folder that manage.py is in. Thus MEDIA_ROOT and etc are in that folder
