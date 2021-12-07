@@ -170,8 +170,8 @@ public class TheTests {
 	    
 	    
     driver.findElement(By.linkText("My Books")).click();
-//    driver.findElement(By.linkText("Book with Three Chapters")).click();
-    driver.findElement(By.cssSelector("a[href='/book/3']")).click();
+    driver.findElement(By.linkText("Think Python")).click();
+    //driver.findElement(By.cssSelector("a[href='/book/3']")).click();
 
     driver.findElement(By.linkText("[[DOWNLOAD]]")).click();
   }
@@ -218,6 +218,17 @@ public class TheTests {
     driver.findElement(By.linkText("Search Books")).click();
     new Select(driver.findElement(By.id("id_author"))).selectByVisibleText("Jane Austen");
     driver.findElement(By.xpath("//option[@value='1']")).click();
+    driver.findElement(By.xpath("//input[@value='Search']")).click();
+  }
+	
+  @Test
+  public void testSearchByDate() throws Exception {
+    driver.get("http://3.135.240.54/");
+	//driver.manage().window().maximize();
+
+    driver.findElement(By.linkText("Search Books")).click();
+
+    driver.findElement(By.id("id_search_date_before")).sendKeys("12062021");
     driver.findElement(By.xpath("//input[@value='Search']")).click();
   }
 
