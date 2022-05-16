@@ -1,3 +1,5 @@
+This was a class project to create a web application using a high-level framework. Unfortunately, my team had agreed to use Python and then they realized that not only did they not know how to program in Python, they were incapable of learning it. So, unfortunately, the code is not ideal as I had to carry a 4-man project by myself. Please excuse any sloppiness if you have any interest in this simple application.
+
 ==========================
 ====AWS: Instructions:====
 ==========================
